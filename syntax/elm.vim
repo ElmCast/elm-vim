@@ -15,7 +15,7 @@ syn match elmBacktick "`[A-Za-z][A-Za-z0-9_]*\('\)*`"
 syn match elmType "\<[A-Z][0-9A-Za-z_'-]*"
 
 " Booleans
-syn keyword elmBoolean True False
+syn keyword elmBoolean True False otherwise
 
 " Delimiters
 syn match elmDelimiter  "[(),;[\]{}]"
