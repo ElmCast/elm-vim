@@ -14,11 +14,7 @@ setlocal nolisp
 setlocal nosmartindent
 
 " Comment formatting
-if (has("comments"))
-	setlocal comments=sr:{-,mb:-,ex:-}
-	setlocal commentstring=--%s
-	setlocal fo=cqort
-endif
+setlocal comments=s1fl:{-,mb:\ ,ex:-},:--
 
 " Only define the function once.
 if exists("*GetElmIndent")
@@ -56,7 +52,7 @@ endfunction
 
 function! GetElmIndent()
 	if synIDattr(synID(v:lnum, 1, 0), "name") =~? "comment"
-		return indent(v:lnum)	
+		return 0
 	endif
 
 	" Find a non-commented line above the current line.
