@@ -64,12 +64,13 @@ function! GetElmIndent()
 	elseif lline =~ '^\s*--'
 		return ind
 
+	" Align the end of block comments with the start
 	elseif line =~ '^\s*-}'
 		return indent(search('{-', 'bWn'))
 
 	" Indent double after let with an empty rhs 
 	elseif lline =~ '\<let\>.*\s=$'
-    return ind + (&sw * 2)
+		return ind + (&sw * 2)
 
 	" Align 'in' with the parent let
 	elseif line =~ '^\s*in\>'
@@ -77,7 +78,7 @@ function! GetElmIndent()
 
 	" Align bindings with the parent let.
 	elseif lline =~ '\<let\>'
-    return ind + &sw
+		return ind + &sw
 
 	endif
 
@@ -90,12 +91,12 @@ function! GetElmIndent()
 	elseif lline =~ '^\s*type' && line =~ '^\s*='
 		let ind = ind + &sw
 
-  " Back to normal indent after comments:
-  elseif lline =~ '-}\s*$'
-    call search('-}', 'bW')
-    let ind = indent(searchpair('{-', '', '-}', 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string"'))
+	" Back to normal indent after comments:
+	elseif lline =~ '-}\s*$'
+		call search('-}', 'bW')
+		let ind = indent(searchpair('{-', '', '-}', 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string"'))
 
- 	endif
+	endif
 
 
 	return ind
