@@ -60,8 +60,24 @@ function! GetElmIndent()
 	elseif line =~ '->' && line !~ ':' && line !~ '\\'
 		return indent(search('^\s*case', 'bWn')) + &sw
 
+	" HACK: Don't change the indentation if the last line is a comment.
 	elseif lline =~ '^\s*--'
 		return ind
+
+	elseif line =~ '^\s*-}'
+		return indent(search('{-', 'bWn'))
+
+	" Indent double after let with an empty rhs 
+	elseif lline =~ '\<let\>.*\s=$'
+    return ind + (&sw * 2)
+
+	" Align 'in' with the parent let
+	elseif line =~ '^\s*in\>'
+		return indent(search('^\s*let', 'bWn'))
+
+	" Align bindings with the parent let.
+	elseif lline =~ '\<let\>'
+    return ind + &sw
 
 	endif
 
@@ -69,7 +85,6 @@ function! GetElmIndent()
 	" Add a 'shiftwidth' after lines ending with:
 	if lline =~ '\(|\|=\|->\|<-\|(\|\[\|{\|\<\(in\|of\|else\|if\|then\)\)\s*$'
 		let ind = ind + &sw
-		echo(ind)
 
 	" Add a 'shiftwidth' after lines starting with type ending with '=':
 	elseif lline =~ '^\s*type' && line =~ '^\s*='
