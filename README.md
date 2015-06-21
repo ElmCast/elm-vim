@@ -1,6 +1,6 @@
 # elm-vim [![Release](https://img.shields.io/github/release/ajhager/elm-vim.svg?style=flat-square)](https://github.com/ajhager/elm-vim/releases)
 
-Elm (elm-lang) support for Vim.
+Elm [elm-lang](http://elm-lang.org) support for Vim.
 
 ## Features
 

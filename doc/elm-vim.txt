@@ -25,7 +25,7 @@ INTRO                                                               *elm-intro*
 
 Homepage: https://github.com/ajhager/elm-vim
 
-Elm (elm-lang) support for Vim.
+Elm (http://elm-lang.org) support for Vim.
 
   * Improved Syntax highlighting
   * Improved Indentation
