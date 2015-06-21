@@ -65,7 +65,8 @@ plugins.
 <
 
 Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`,
-`elm-reactor`, etc..) from http://elm-lang.org/.
+`elm-reactor`, etc..) from http://elm-lang.org/. You may also want to install `elm-test` with 'npm install -g elm-test' if you want to run unit tests from within vim.
+
 
 ===============================================================================
 COMMANDS                                                         *elm-commands*
@@ -77,7 +78,12 @@ COMMANDS                                                         *elm-commands*
 
 :ElmMakeMain
 
-    ElmMakeMain attempts to calls `elm-make` with "Main.elm".
+    ElmMakeMain attempts to call `elm-make` with "Main.elm".
+
+:ElmTest [file]
+
+    ElmTest calls `elm-test` with the given {file}. If no {file} is given
+    it attempts to run the test in 'Test{file}'.
 
 ===============================================================================
 MAPPINGS                                                         *elm-mappings*
@@ -99,6 +105,9 @@ Calls `elm make` for the current file
 
 Calls `elm make` with "Main.elm"
 
+                                                                   *(elm-test)*
+
+Calls `elm test` with "Test[filename].elm"
 
 ===============================================================================
 SETTINGS                                                         *elm-settings*

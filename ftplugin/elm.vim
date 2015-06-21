@@ -15,10 +15,21 @@ function! ElmMake(...)
 	endif
 endfunction
 
+" Test the given file, or the current file with 'Test' added if none is given.
+function! ElmTest(...)
+	if a:0 == 0
+		echo system("elm-test Test". expand("%"))
+	else
+		echo system("elm-test ". a:1)
+	endif
+endfunction
+
 " Plug mappings
 nnoremap <silent> <Plug>(elm-make) :<C-u>call ElmMake()<CR>
 nnoremap <silent> <Plug>(elm-make-main) :<C-u>call ElmMake("Main.elm")<CR>
+nnoremap <silent> <Plug>(elm-test) :<C-u>call ElmTest()<CR>
 
 " Commands
-command -buffer ElmMakeMain call ElmMake("Main.elm")
 command -buffer -nargs=? -complete=file ElmMake call ElmMake(<f-args>)
+command -buffer ElmMakeMain call ElmMake("Main.elm")
+command -buffer -nargs=? -complete=file ElmTest call ElmTest(<f-args>)

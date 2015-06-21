@@ -22,9 +22,11 @@ plugins.
   * `NeoBundle 'ajhager/elm-vim'`
 *  [Vundle](https://github.com/gmarik/vundle)
   * `Plugin 'ajhager/elm-vim'`
+*  Manual Install
+	* Copy all of the files into your `~/.vim` directory
 
 Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`,
-`elm-reactor`, etc..) from http://elm-lang.org/.
+`elm-reactor`, etc..) from http://elm-lang.org/. You may also want to install `elm-test` with `npm install -g elm-test` if you want to run unit tests from within vim.
 
 ## Usage
 
@@ -33,6 +35,14 @@ additional settings needed. All usages and commands are listed in
 `doc/elm-vim.txt`.
 
     :help elm-vim
+
+* :ElmMake calls `elm-make` with the given file. If no file is given it uses the current file being edited.
+
+* :ElmMakeMain attempts to call `elm-make` with "Main.elm".
+
+* :ElmTest calls `elm-test` with the given file. If no file is given it attempts to run the tests in 'Test[filename].elm'.
+
+
 
 ## Indentation
 
