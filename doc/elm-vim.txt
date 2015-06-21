@@ -1,0 +1,127 @@
+*elm-vim.txt* Elm development plugin
+*elm-vim*
+
+===============================================================================
+             oooo                                     o8o
+             `888                                     `"'
+    .ooooo.   888  ooo. .oo.  .oo.       oooo    ooo oooo  ooo. .oo.  .oo.
+   d88' `88b  888  `888P"Y88bP"Y88b       `88.  .8'  `888  `888P"Y88bP"Y88b
+   888ooo888  888   888   888   888        `88..8'    888   888   888   888
+   888    .o  888   888   888   888  .o.    `888'     888   888   888   888
+   `Y8bod8P' o888o o888o o888o o888o Y8P     `8'     o888o o888o o888o o888o
+===============================================================================
+CONTENTS							  *elm-contents*
+
+  1. Intro............................................|elm-intro|
+  2. Install..........................................|elm-install|
+  3. Commands.........................................|elm-commands|
+  4. Mappings.........................................|elm-mappings|
+  5. Settings.........................................|elm-settings|
+  6. Troubleshooting..................................|elm-troubleshooting|
+  7. Credits..........................................|elm-credits|
+
+===============================================================================
+INTRO                                                               *elm-intro*
+
+Homepage: https://github.com/ajhager/elm-vim
+
+Elm (elm-lang) support for Vim.
+
+  * Improved Syntax highlighting
+  * Improved Indentation
+  * Run commands like elm-make
+
+===============================================================================
+INSTALL                                                           *elm-install*
+
+Elm-vim follows the standard runtime path structure, so you should use a common
+and well known plugin manager to install it. Do not use elm-vim with other Elm
+plugins.
+
+
+*  https://github.com/tpope/vim-pathogen >
+
+    git clone https://github.com/ajhager/elm-vim.git ~/.vim/bundle/elm-vim
+<
+
+*  https://github.com/junegunn/vim-plug >
+
+    Plug 'ajhager/elm-vim'
+
+<
+*  https://github.com/Shougo/neobundle.vim >
+
+    NeoBundle 'ajhager/elm-vim'
+<
+
+*  https://github.com/gmarik/vundle >
+
+    Plugin 'ajhager/elm-vim'
+
+<
+*  Manual >
+
+    Copy all of the files into your `~/.vim` directory
+<
+
+Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`,
+`elm-reactor`, etc..) from http://elm-lang.org/.
+
+===============================================================================
+COMMANDS                                                         *elm-commands*
+
+:ElmMake [file]
+
+    ElmMake calls `elm-make` with the given {file}. If no {file} is given
+    it uses the current file being edited.
+
+:ElmMakeMain
+
+    ElmMakeMain attempts to calls `elm-make` with "Main.elm".
+
+===============================================================================
+MAPPINGS                                                         *elm-mappings*
+
+elm-vim has several <Plug> keys which can be used to create custom mappings
+For example, to create a mapping that `elm make` the current file, create a
+mapping for the `(elm-make)` plug: >
+
+  au FileType elm nmap <leader>mb <Plug>(elm-make)
+
+As always, you can create more advanced mappings with |elm-commands|.
+Available <Plug> keys are:
+
+							           *(elm-make)*
+
+Calls `elm make` for the current file
+
+							      *(elm-make-main)*
+
+Calls `elm make` with "Main.elm"
+
+
+===============================================================================
+SETTINGS                                                         *elm-settings*
+
+*COMING SOON*
+
+===============================================================================
+TROUBLESHOOTING                                           *elm-troubleshooting*
+
+If you see something like:
+>
+  command not found: elm-make
+<
+Make sure that you have correctly installed the elm platform from
+http://elm-lang.org.
+
+
+For all other issues, please see https://github.com/ajhager/elm-vim/issues.
+
+===============================================================================
+CREDITS                                                           *elm-credits*
+
+* Other vim-plugins, thanks for inspiration (elm.vim, ocaml.vim, haskell-vim)
+* elm-vim contributors: https://github.com/ajhager/elm-vim/graphs/contributors
+
+vim:ft=help:et:ts=2:sw=2:sts=2:norl
