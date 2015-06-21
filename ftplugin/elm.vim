@@ -24,12 +24,19 @@ function! ElmTest(...)
 	endif
 endfunction
 
-" Plug mappings
-nnoremap <silent> <Plug>(elm-make) :<C-u>call ElmMake()<CR>
-nnoremap <silent> <Plug>(elm-make-main) :<C-u>call ElmMake("Main.elm")<CR>
-nnoremap <silent> <Plug>(elm-test) :<C-u>call ElmTest()<CR>
+" Open the elm repl in a subprocess.
+function! ElmRepl()
+	!elm-repl
+endfunction
 
 " Commands
 command -buffer -nargs=? -complete=file ElmMake call ElmMake(<f-args>)
 command -buffer ElmMakeMain call ElmMake("Main.elm")
 command -buffer -nargs=? -complete=file ElmTest call ElmTest(<f-args>)
+command -buffer ElmRepl call ElmRepl()
+
+" Mappings
+nnoremap <silent> <Plug>(elm-make) :<C-u>call ElmMake()<CR>
+nnoremap <silent> <Plug>(elm-make-main) :<C-u>call ElmMake("Main.elm")<CR>
+nnoremap <silent> <Plug>(elm-test) :<C-u>call ElmTest()<CR>
+nnoremap <silent> <Plug>(elm-repl) :<C-u>call ElmRepl()<CR>

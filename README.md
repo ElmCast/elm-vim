@@ -36,13 +36,25 @@ additional settings needed. All usages and commands are listed in
 
     :help elm-vim
 
-* :ElmMake calls `elm-make` with the given file. If no file is given it uses the current file being edited.
+* `:ElmMake [filename]` calls `elm-make` with the given file. If no file is given it uses the current file being edited.
 
-* :ElmMakeMain attempts to call `elm-make` with "Main.elm".
+* `:ElmMakeMain` attempts to call `elm-make` with "Main.elm".
 
-* :ElmTest calls `elm-test` with the given file. If no file is given it attempts to run the tests in 'Test[filename].elm'.
+* `:ElmTest` calls `elm-test` with the given file. If no file is given it attempts to run the tests in 'Test[filename].elm'.
 
+* `:ElmRepl` runs `elm-repl`, which will return to vim on exiting.
 
+## Mappings
+
+Elm-vim has several `<Plug>` mappings which can be used to create custom
+mappings. Below are some examples you might find useful:
+
+```vim
+au FileType elm nmap <leader>mb <Plug>(elm-make)
+au FileType elm nmap <leader>mm <Plug>(elm-make-main)
+au FileType elm nmap <leader>t <Plug>(elm-test)
+au FileType elm nmap <leader>r <Plug>(elm-repl)
+```
 
 ## Indentation
 
