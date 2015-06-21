@@ -1,0 +1,6 @@
+{
+  "name": "elm-vim",
+  "description": "Full featured Elm (elm-lang) support for Vim.",
+  "author": "Joseph Hager <ajhager@gmail.com>",
+  "repository" : {"type": "git", "url": "https://github.com/ajhager/elm-vim.git"}
+}
