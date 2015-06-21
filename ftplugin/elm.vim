@@ -15,5 +15,10 @@ function! ElmMake(...)
 	endif
 endfunction
 
+" Plug mappings
+nnoremap <silent> <Plug>(elm-make) :<C-u>call ElmMake()<CR>
+nnoremap <silent> <Plug>(elm-make-main) :<C-u>call ElmMake("Main.elm")<CR>
+
+" Commands
 command -buffer ElmMakeMain call ElmMake("Main.elm")
 command -buffer -nargs=? -complete=file ElmMake call ElmMake(<f-args>)
