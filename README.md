@@ -4,9 +4,9 @@ Elm [elm-lang](http://elm-lang.org) support for Vim.
 
 ## Features
 
-* Improved Syntax highlighting
+* Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions.
 * Improved Indentation
-* Run commands like elm-make
+* Commands and mappings for interfacing with the elm platform.
 
 ## Install
 
@@ -22,7 +22,7 @@ plugins.
   * `NeoBundle 'ajhager/elm-vim'`
 *  [Vundle](https://github.com/gmarik/vundle)
   * `Plugin 'ajhager/elm-vim'`
-*  Manual Install
+*  Manually
 	* Copy all of the files into your `~/.vim` directory
 
 Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`,
