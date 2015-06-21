@@ -10,7 +10,7 @@
    888    .o  888   888   888   888  .o.    `888'     888   888   888   888
    `Y8bod8P' o888o o888o o888o o888o Y8P     `8'     o888o o888o o888o o888o
 ===============================================================================
-CONTENTS							  *elm-contents*
+CONTENTS                                                         *elm-contents*
 
   1. Intro............................................|elm-intro|
   2. Install..........................................|elm-install|
@@ -91,11 +91,11 @@ mapping for the `(elm-make)` plug: >
 As always, you can create more advanced mappings with |elm-commands|.
 Available <Plug> keys are:
 
-							           *(elm-make)*
+                                                                   *(elm-make)*
 
 Calls `elm make` for the current file
 
-							      *(elm-make-main)*
+                                                              *(elm-make-main)*
 
 Calls `elm make` with "Main.elm"
 
