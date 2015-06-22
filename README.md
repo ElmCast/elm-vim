@@ -50,8 +50,8 @@ Elm-vim has several `<Plug>` mappings which can be used to create custom
 mappings. Below are some examples you might find useful:
 
 ```vim
-au FileType elm nmap <leader>mb <Plug>(elm-make)
-au FileType elm nmap <leader>mm <Plug>(elm-make-main)
+au FileType elm nmap <leader>b <Plug>(elm-make)
+au FileType elm nmap <leader>m <Plug>(elm-make-main)
 au FileType elm nmap <leader>t <Plug>(elm-test)
 au FileType elm nmap <leader>r <Plug>(elm-repl)
 ```

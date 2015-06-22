@@ -92,7 +92,7 @@ elm-vim has several <Plug> keys which can be used to create custom mappings
 For example, to create a mapping that `elm make` the current file, create a
 mapping for the `(elm-make)` plug: >
 
-  au FileType elm nmap <leader>mb <Plug>(elm-make)
+  au FileType elm nmap <leader>m <Plug>(elm-make)
 
 As always, you can create more advanced mappings with |elm-commands|.
 Available <Plug> keys are:
