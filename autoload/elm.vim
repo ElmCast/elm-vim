@@ -1,21 +1,15 @@
 " functions for Elm (http://elm-lang.org/)
-
+"
 " Make the given file, or the current file if none is given.
 function! elm#Make(...)
-	if a:0 == 0
-		echo system("elm-make ". expand("%"))
-	else
-		echo system("elm-make ". a:1)
-	endif
+	let l:file = (a:0 == 0) ? expand("%") : a:1
+	echo system("elm-make " . l:file)
 endfunction
 
 " Test the given file, or the current file with 'Test' added if none is given.
 function! elm#Test(...)
-	if a:0 == 0
-		echo system("elm-test Test". expand("%"))
-	else
-		echo system("elm-test ". a:1)
-	endif
+	let l:file = (a:0 == 0) ? "Test" . expand("%") : a:1
+	echo system("elm-test " . l:file)
 endfunction
 
 " Open the elm repl in a subprocess.
