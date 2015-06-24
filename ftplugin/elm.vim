@@ -6,6 +6,11 @@ endif
 
 let b:did_ftplugin = 1
 
+" Settings
+if !exists("g:elm_jump_to_error")
+	let g:elm_jump_to_error = 1
+endif
+
 " Commands
 command -buffer -nargs=? -complete=file ElmMake call elm#Make(<f-args>)
 command -buffer ElmMakeMain call elm#Make("Main.elm")
