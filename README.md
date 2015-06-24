@@ -56,6 +56,16 @@ au FileType elm nmap <leader>t <Plug>(elm-test)
 au FileType elm nmap <leader>r <Plug>(elm-repl)
 ```
 
+## Settings
+
+Below are some settings you might find useful.
+
+By default, vim will move the cursor to any errors found when running :ElmMake.
+
+```
+let g:elm_jump_to_error = 1
+```
+
 ## Indentation
 
 The current indentation function is still rough, but should work for a lot of cases. It is not always possible to know the perfect indentation level just from context, but we should be able to generate a list of candidates.

@@ -117,7 +117,12 @@ Calls `elm repl` in a subprocess
 ===============================================================================
 SETTINGS                                                         *elm-settings*
 
-*COMING SOON*
+                                                         *'g:elm_jump_to_error'*
+
+This setting configures whether to have vim jump the cursor to the first error found when running commands. By default it's enabled.
+>
+  let g:elm_jump_to_error = 1
+<
 
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*
