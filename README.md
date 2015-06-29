@@ -8,7 +8,7 @@ Elm [elm-lang](http://elm-lang.org) support for Vim.
 * Improved Indentation
 * Commands and mappings for interfacing with the elm platform.
 
-Check out this [ElmCast video](https://www.youtube.com/watch?v=SkPIijS1GTU) for more detail.
+Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
 ## Install
 
