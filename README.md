@@ -44,6 +44,9 @@ additional settings needed. All usages and commands are listed in
 
 * `:ElmRepl` runs `elm-repl`, which will return to vim on exiting.
 
+* `:ElmErrorDetail` shows the detail of the current error in the quickfix window.
+
+
 ## Mappings
 
 Elm-vim has several `<Plug>` mappings which can be used to create custom
@@ -54,6 +57,7 @@ au FileType elm nmap <leader>b <Plug>(elm-make)
 au FileType elm nmap <leader>m <Plug>(elm-make-main)
 au FileType elm nmap <leader>t <Plug>(elm-test)
 au FileType elm nmap <leader>r <Plug>(elm-repl)
+au FileType elm nmap <leader>d <Plug>(elm-error-detail)
 ```
 
 ## Settings

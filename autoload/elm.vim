@@ -12,11 +12,14 @@ function! elm#Make(...)
 	let filename = (a:0 == 0) ? expand("%") : a:1
 	let rawout = system("elm-make --report=json " . filename)
 	let output = split(rawout, '\n')[0]
+	let s:errors = []
 
 	if output[0] == '['
+		let s:errors = s:DecodeJSON(output)
 		let errors = []
-		for err in s:DecodeJSON(output)
+		for err in s:errors
 			call add(errors, {"filename": err.file,
+				      \"type": (err.type == "error") ? 'E' : 'W',
 							\"lnum": err.region.start.line,
 							\"col": err.region.start.column,
 							\"text": err.overview})
@@ -36,6 +39,18 @@ function! elm#Make(...)
 		cwindow
 
 		redraws! | echon " " | echohl Function | echon output | echohl None
+	endif
+endfunction
+
+" Show the detail of the current error in the quickfix window.
+function! elm#ErrorDetail()
+	if !empty(filter(tabpagebuflist(), 'getbufvar(v:val, "&buftype") ==# "quickfix"'))
+		exec ":copen"
+		let linenr = line(".")
+		exec ":wincmd p"
+		if len(s:errors) > 0
+			echo s:errors[linenr-1].details
+		endif
 	endif
 endfunction
 
