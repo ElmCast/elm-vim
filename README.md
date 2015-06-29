@@ -8,6 +8,8 @@ Elm [elm-lang](http://elm-lang.org) support for Vim.
 * Improved Indentation
 * Commands and mappings for interfacing with the elm platform.
 
+Check out this [ElmCast video](https://www.youtube.com/watch?v=SkPIijS1GTU) for more detail.
+
 ## Install
 
 Elm-vim follows the standard runtime path structure, so you should use a common
