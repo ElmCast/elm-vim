@@ -11,6 +11,14 @@ if !exists("g:elm_jump_to_error")
 	let g:elm_jump_to_error = 1
 endif
 
+if !exists("g:elm_make_output_file")
+	let g:elm_make_output_file = "elm.js"
+endif
+
+if !exists("g:elm_make_show_warnings")
+	let g:elm_make_show_warnings = 0
+endif
+
 " Commands
 command -buffer -nargs=? -complete=file ElmMake call elm#Make(<f-args>)
 command -buffer ElmMakeMain call elm#Make("Main.elm")

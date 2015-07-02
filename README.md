@@ -48,7 +48,6 @@ additional settings needed. All usages and commands are listed in
 
 * `:ElmErrorDetail` shows the detail of the current error in the quickfix window.
 
-
 ## Mappings
 
 Elm-vim has several `<Plug>` mappings which can be used to create custom
@@ -64,12 +63,12 @@ au FileType elm nmap <leader>d <Plug>(elm-error-detail)
 
 ## Settings
 
-Below are some settings you might find useful.
-
-By default, vim will move the cursor to any errors found when running :ElmMake.
+Below are some (default) settings you might find useful to change.
 
 ```
 let g:elm_jump_to_error = 1
+let g:elm_make_output_file = "elm.js"
+let g:elm_make_show_warnings = 0
 ```
 
 ## Indentation

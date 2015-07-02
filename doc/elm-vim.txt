@@ -136,7 +136,18 @@ This setting configures whether to have vim jump the cursor to the first error f
 >
   let g:elm_jump_to_error = 1
 <
+                                                     *'g:elm_make_output_file'*
 
+This setting configures which file elm-make will compile to.
+>
+  let g:elm_make_output_file = "elm.js"
+<
+                                                   *'g:elm_make_show_warnings'*
+
+This setting configures if warnings should be shown in the quickfix window.
+>
+  let g:elm_make_show_warnings = 0
+<
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*
 
