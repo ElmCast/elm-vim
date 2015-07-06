@@ -5,6 +5,97 @@ fun! s:DecodeJSON(s)
 	return eval(a:s)
 endf
 
+function! s:IsWin()
+	let win = ['win16', 'win32', 'win32unix', 'win64', 'win95']
+	for w in win
+		if (has(w))
+			return 1
+		endif
+	endfor
+
+	return 0
+endfunction
+
+function! s:get_browser_command()
+    let elm_browser_command = get(g:, 'elm_browser_command', '')
+    if elm_browser_command == ''
+        if s:IsWin()
+            let elm_browser_command = '!start rundll32 url.dll,FileProtocolHandler %URL%'
+        elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
+            let elm_browser_command = 'open %URL%'
+        elseif executable('xdg-open')
+            let elm_browser_command = 'xdg-open %URL%'
+        elseif executable('firefox')
+            let elm_browser_command = 'firefox %URL% &'
+        else
+            let elm_browser_command = ''
+        endif
+    endif
+    return elm_browser_command
+endfunction
+
+function! s:OpenBrowser(url)
+    let cmd = s:get_browser_command()
+    if len(cmd) == 0
+        redraw
+        echohl WarningMsg
+        echo "It seems that you don't have general web browser. Open URL below."
+        echohl None
+        echo a:url
+        return
+    endif
+    if cmd =~ '^!'
+        let cmd = substitute(cmd, '%URL%', '\=shellescape(a:url)', 'g')
+        silent! exec cmd
+    elseif cmd =~ '^:[A-Z]'
+        let cmd = substitute(cmd, '%URL%', '\=a:url', 'g')
+        exec cmd
+    else
+        let cmd = substitute(cmd, '%URL%', '\=shellescape(a:url)', 'g')
+        call system(cmd)
+    endif
+endfunction
+
+fun! s:elmOracle()
+	let filename = expand("%")
+
+	let oldiskeyword = &iskeyword
+	setlocal iskeyword+=.
+	let word = expand('<cword>')
+	let &iskeyword = oldiskeyword
+	let word = substitute(word, '[^a-zA-Z0-9\\/._~-]', '', 'g')
+
+	let infos = system("elm-oracle " . filename . " " . word)
+	let d = split(infos, '\n')
+	if len(d) > 0
+		return s:DecodeJSON(d[0])
+	endif
+
+	return []
+endf
+
+" Query elm-oracle and echo the type and docs for the word under the cursor.
+fun! elm#ShowDocs()
+		let response = s:elmOracle()
+		if len(response) > 0
+			let info = response[0]
+			redraws! | echohl Identifier | echon info.name | echohl None | echon " : " | echohl Function | echon info.signature | echohl None | echon "\n\n" . info.comment
+		else
+			echon "elm-oracle: " | echohl Identifier |  echon "...no match found" | echohl None
+		endif
+endf
+
+" Query elm-oracle and open the docs for the word under the cursor.
+fun! elm#BrowseDocs()
+		let response = s:elmOracle()
+		if len(response) > 0
+			let info = response[0]
+			call s:OpenBrowser(info.href)	
+		else
+			echon "elm-oracle: " | echohl Identifier |  echon "...no match found" | echohl None
+		endif
+endf
+
 " Make the given file, or the current file if none is given.
 fun! elm#Make(...)
 	echon "elm-make: " | echohl Identifier | echon "building ..."| echohl None

@@ -94,6 +94,16 @@ COMMANDS                                                         *elm-commands*
     ElmErrorDetail shows the detail of the current error in the quickfix
     window.
 
+:ElmShowDocs
+
+    ElmShowDocs queries elm-oracle, then echos the type and docs for the
+    word under the cursor.
+
+:ElmBrowseDocs
+
+    ElmBrowseDocs queries elm-oracle, then opens docs web page for the
+    word under the cursor.
+
 ===============================================================================
 MAPPINGS                                                         *elm-mappings*
 
@@ -126,6 +136,13 @@ Calls `elm repl` in a subprocess
 
 Shows the detail of the current error.
 
+                                                              *(elm-show-docs)*
+
+Queries `elm oracle` and shows the docs for the word under the cursor.
+
+                                                            *(elm-browse-docs)*
+
+Queries `elm oracle` and browses the docs for the word under the cursor.
 
 ===============================================================================
 SETTINGS                                                         *elm-settings*
@@ -147,6 +164,13 @@ This setting configures which file elm-make will compile to.
 This setting configures if warnings should be shown in the quickfix window.
 >
   let g:elm_make_show_warnings = 0
+<
+
+                                                      *'g:elm_browser_command'*
+
+This setting configures the browser command used to browse docs.
+>
+  let g:elm_browser_command = ''
 <
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*

@@ -28,7 +28,11 @@ plugins.
 	* Copy all of the files into your `~/.vim` directory
 
 Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`,
-`elm-reactor`, etc..) from http://elm-lang.org/. You may also want to install `elm-test` with `npm install -g elm-test` if you want to run unit tests from within vim.
+`elm-reactor`, etc..) from http://elm-lang.org/.
+
+You may also want to install `elm-test` with `npm install -g elm-test` if you want to run unit tests from within vim.
+
+You may also want to install `elm-oracle` with `npm install -g elm-oracle` if you want to query docs and types from within vim.
 
 ## Usage
 
@@ -48,6 +52,10 @@ additional settings needed. All usages and commands are listed in
 
 * `:ElmErrorDetail` shows the detail of the current error in the quickfix window.
 
+* `:ElmShowDocs` queries elm-oracle, then echos the type and docs for the word under the cursor.
+
+* `:ElmBrowseDocs` queries elm-oracle, then opens docs web page for the word under the cursor.
+
 ## Mappings
 
 Elm-vim has several `<Plug>` mappings which can be used to create custom
@@ -58,7 +66,9 @@ au FileType elm nmap <leader>b <Plug>(elm-make)
 au FileType elm nmap <leader>m <Plug>(elm-make-main)
 au FileType elm nmap <leader>t <Plug>(elm-test)
 au FileType elm nmap <leader>r <Plug>(elm-repl)
-au FileType elm nmap <leader>d <Plug>(elm-error-detail)
+au FileType elm nmap <leader>e <Plug>(elm-error-detail)
+au FileType elm nmap <leader>d <Plug>(elm-show-docs)
+au FileType elm nmap <leader>w <Plug>(elm-browse-docs)
 ```
 
 ## Settings
@@ -69,6 +79,7 @@ Below are some (default) settings you might find useful to change.
 let g:elm_jump_to_error = 1
 let g:elm_make_output_file = "elm.js"
 let g:elm_make_show_warnings = 0
+let g:elm_browser_command = ""
 ```
 
 ## Indentation
