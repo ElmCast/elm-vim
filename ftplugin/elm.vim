@@ -26,6 +26,7 @@ command -buffer -nargs=? -complete=file ElmTest call elm#Test(<f-args>)
 command -buffer ElmRepl call elm#Repl()
 command -buffer ElmErrorDetail call elm#ErrorDetail()
 command -buffer ElmShowDocs call elm#ShowDocs()
+command -buffer ElmBrowseDocs call elm#BrowseDocs()
 
 " Mappings
 nnoremap <silent> <Plug>(elm-make) :<C-u>call elm#Make()<CR>
