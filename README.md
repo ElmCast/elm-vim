@@ -1,6 +1,10 @@
-# elm-vim [![Release](https://img.shields.io/github/release/ajhager/elm-vim.svg?style=flat-square)](https://github.com/ajhager/elm-vim/releases)
+# elm-vim [![Release](https://img.shields.io/github/release/elmcast/elm-vim.svg?style=flat-square)](https://github.com/elmcast/elm-vim/releases)
 
 Elm [elm-lang](http://elm-lang.org) support for Vim.
+
+## Compatibility
+
+This plugin requires the error reporting features from Elm Platform 0.15.1 or above.
 
 ## Features
 
@@ -17,13 +21,13 @@ and well known plugin manager to install it. Do not use elm-vim with other Elm
 plugins.
 
 *  [Pathogen](https://github.com/tpope/vim-pathogen)
-  * `git clone https://github.com/ajhager/elm-vim.git ~/.vim/bundle/elm-vim`
+  * `git clone https://github.com/elmcast/elm-vim.git ~/.vim/bundle/elm-vim`
 *  [vim-plug](https://github.com/junegunn/vim-plug)
-  * `Plug 'ajhager/elm-vim'`
+  * `Plug 'elmcast/elm-vim'`
 *  [NeoBundle](https://github.com/Shougo/neobundle.vim)
-  * `NeoBundle 'ajhager/elm-vim'`
+  * `NeoBundle 'elmcast/elm-vim'`
 *  [Vundle](https://github.com/gmarik/vundle)
-  * `Plugin 'ajhager/elm-vim'`
+  * `Plugin 'elmcast/elm-vim'`
 *  Manually
 	* Copy all of the files into your `~/.vim` directory
 
@@ -89,7 +93,7 @@ The current indentation function is still rough, but should work for a lot of ca
 ## Credits
 
 * Other vim-plugins, thanks for inspiration (elm.vim, ocaml.vim, haskell-vim)
-* [Contributors](https://github.com/ajhager/elm-vim/graphs/contributors) of elm-vim
+* [Contributors](https://github.com/elmcast/elm-vim/graphs/contributors) of elm-vim
 
 ## License
 
