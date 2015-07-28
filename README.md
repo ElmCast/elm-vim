@@ -8,9 +8,10 @@ This plugin requires the error reporting features from Elm Platform 0.15.1 or ab
 
 ## Features
 
-* Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions.
+* Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions
 * Improved Indentation
-* Commands and mappings for interfacing with the elm platform.
+* Commands and mappings for interfacing with the elm platform
+* Auto-complete
 
 Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 

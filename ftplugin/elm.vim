@@ -19,6 +19,8 @@ if !exists("g:elm_make_show_warnings")
 	let g:elm_make_show_warnings = 0
 endif
 
+setlocal omnifunc=elm#Complete
+
 " Commands
 command -buffer -nargs=? -complete=file ElmMake call elm#Make(<f-args>)
 command -buffer ElmMakeMain call elm#Make("Main.elm")

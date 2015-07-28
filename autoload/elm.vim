@@ -56,14 +56,17 @@ function! s:OpenBrowser(url)
     endif
 endfunction
 
-fun! s:elmOracle()
+fun! s:elmOracle(...)
 	let filename = expand("%")
 
-	let oldiskeyword = &iskeyword
-	setlocal iskeyword+=.
-	let word = expand('<cword>')
-	let &iskeyword = oldiskeyword
-	let word = substitute(word, '[^a-zA-Z0-9\\/._~-]', '', 'g')
+	if a:0 == 0
+		let oldiskeyword = &iskeyword
+		setlocal iskeyword+=.
+		let word = expand('<cword>')
+		let &iskeyword = oldiskeyword
+	else
+		let word = a:1
+	endif
 
 	let infos = system("elm-oracle " . filename . " " . word)
 	let d = split(infos, '\n')
@@ -79,7 +82,7 @@ fun! elm#ShowDocs()
 		let response = s:elmOracle()
 		if len(response) > 0
 			let info = response[0]
-			redraws! | echohl Identifier | echon info.name | echohl None | echon " : " | echohl Function | echon info.signature | echohl None | echon "\n\n" . info.comment
+			redraws! | echohl Identifier | echon info.fullName | echohl None | echon " : " | echohl Function | echon info.signature | echohl None | echon "\n\n" . info.comment
 		else
 			echon "elm-oracle: " | echohl Identifier |  echon "...no match found" | echohl None
 		endif
@@ -173,4 +176,39 @@ endf
 " Open the elm repl in a subprocess.
 fun! elm#Repl()
 	!elm-repl
+endf
+
+let s:fullComplete = ""
+
+" Complete the current token using elm-oracle
+fun! elm#Complete(findstart, base)
+	if a:findstart
+		let line = getline('.')
+
+		let idx = col('.') - 1
+		let start = 0
+		while idx > 0 && line[idx - 1] =~ '[a-zA-Z0-9_\.]'
+			if line[idx - 1] == "." && start == 0
+				let start = idx
+			endif
+			let idx -= 1
+		endwhile
+
+		if start == 0
+			let start = idx
+		endif
+
+		let s:fullComplete = line[idx : col('.')-1]
+
+		return start
+	else
+		let res = []
+		let response = s:elmOracle(s:fullComplete)
+
+		for r in response
+			call add(res, r.name)
+		endfor
+
+		return res
+	endif
 endf

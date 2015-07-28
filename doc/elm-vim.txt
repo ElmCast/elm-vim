@@ -27,9 +27,10 @@ Homepage: https://github.com/ajhager/elm-vim
 
 Elm (http://elm-lang.org) support for Vim.
 
-  * Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions.
+  * Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions
   * Improved Indentation
-  * Commands and mappings for interfacing with the elm platform.
+  * Commands and mappings for interfacing with the elm platform
+  * Auto-complete
 
 ===============================================================================
 INSTALL                                                           *elm-install*
