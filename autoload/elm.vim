@@ -205,8 +205,14 @@ fun! elm#Complete(findstart, base)
 		let res = []
 		let response = s:elmOracle(s:fullComplete)
 
+		let detailed = get(g:, 'elm_detailed_complete', 0)
+
 		for r in response
-			call add(res, r.name)
+			let menu = ''
+			if detailed
+				let menu = ': ' . r.signature
+			endif
+			call add(res, {'word': r.name, 'menu': menu})
 		endfor
 
 		return res
