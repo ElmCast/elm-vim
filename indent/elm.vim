@@ -8,9 +8,9 @@ let b:did_indent = 1
 
 " Local defaults
 setlocal expandtab
-setlocal shiftwidth=4
+setlocal shiftwidth=2
 setlocal indentexpr=GetElmIndent()
-setlocal indentkeys+=0=else,0=if,0=of,0=import,0=then,0=type,0\|,0},0\],0)
+setlocal indentkeys+==-}
 setlocal nolisp
 setlocal nosmartindent
 
@@ -68,23 +68,26 @@ function! GetElmIndent()
 	elseif line =~ '^\s*-}'
 		return indent(search('{-', 'bWn'))
 
-	" Indent double after let with an empty rhs 
+	" Indent double shift after let with an empty rhs
 	elseif lline =~ '\<let\>.*\s=$'
-		return ind + (&sw * 2)
+		return ind + (&sw * 2) + 2
 
-	" Align 'in' with the parent let
+	" Align 'in' with the parent let.
 	elseif line =~ '^\s*in\>'
 		return indent(search('^\s*let', 'bWn'))
 
 	" Align bindings with the parent let.
 	elseif lline =~ '\<let\>'
-		return ind + &sw
+		return ind + &sw + 2
+
+	" Align bindings with the parent in.
+	elseif lline =~ '^\s*in'
+		return ind + &sw + 2
 
 	endif
 
-
 	" Add a 'shiftwidth' after lines ending with:
-	if lline =~ '\(|\|=\|->\|<-\|(\|\[\|{\|\<\(in\|of\|else\|if\|then\)\)\s*$'
+	if lline =~ '\(|\|=\|->\|<-\|(\|\[\|{\|\<\(of\|else\|if\|then\)\)\s*$'
 		let ind = ind + &sw
 
 	" Add a 'shiftwidth' after lines starting with type ending with '=':
@@ -96,8 +99,11 @@ function! GetElmIndent()
 		call search('-}', 'bW')
 		let ind = indent(searchpair('{-', '', '-}', 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string"'))
 
-	endif
+	" Ident some operators if there aren't any starting the last line.
+	elseif line =~ '^\s*\((\|`\|+\||\|{\|[\|,\)' && lline !~ '^\s*\((\|`\|+\||\|{\|[\|,\)' && lline !~ '^\s*$'
+		let ind = ind + &sw
 
+	endif
 
 	return ind
 endfunc
