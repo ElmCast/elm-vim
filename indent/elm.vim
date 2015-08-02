@@ -8,9 +8,8 @@ let b:did_indent = 1
 
 " Local defaults
 setlocal expandtab
-setlocal shiftwidth=2
 setlocal indentexpr=GetElmIndent()
-setlocal indentkeys+==-}
+setlocal indentkeys+=0},=~-}
 setlocal nolisp
 setlocal nosmartindent
 
@@ -70,7 +69,7 @@ function! GetElmIndent()
 
 	" Indent double shift after let with an empty rhs
 	elseif lline =~ '\<let\>.*\s=$'
-		return ind + (&sw * 2) + 2
+		return ind + 4 + &sw
 
 	" Align 'in' with the parent let.
 	elseif line =~ '^\s*in\>'
@@ -78,11 +77,11 @@ function! GetElmIndent()
 
 	" Align bindings with the parent let.
 	elseif lline =~ '\<let\>'
-		return ind + &sw + 2
+		return ind + 4
 
 	" Align bindings with the parent in.
 	elseif lline =~ '^\s*in'
-		return ind + &sw + 2
+		return ind + 4
 
 	endif
 
@@ -100,7 +99,7 @@ function! GetElmIndent()
 		let ind = indent(searchpair('{-', '', '-}', 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string"'))
 
 	" Ident some operators if there aren't any starting the last line.
-	elseif line =~ '^\s*\((\|`\|+\||\|{\|[\|,\)' && lline !~ '^\s*\((\|`\|+\||\|{\|[\|,\)' && lline !~ '^\s*$'
+	elseif line =~ '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)' && lline !~ '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)' && lline !~ '^\s*$'
 		let ind = ind + &sw
 
 	endif
