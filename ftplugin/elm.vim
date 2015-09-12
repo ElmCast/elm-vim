@@ -21,6 +21,9 @@ endif
 
 setlocal omnifunc=elm#Complete
 
+setlocal comments=:--
+setlocal commentstring=--\ %s
+
 " Commands
 command -buffer -nargs=? -complete=file ElmMake call elm#Make(<f-args>)
 command -buffer ElmMakeMain call elm#Make("Main.elm")
