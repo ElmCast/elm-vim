@@ -56,8 +56,31 @@ function! s:OpenBrowser(url)
     endif
 endfunction
 
+fun! s:findElmStuffParentDir(startDir)
+  let maxRec = 10
+  let c=0
+  let dir=a:startDir
+  while c<maxRec
+    if isdirectory(dir.'/elm-stuff')
+      return l:dir
+    endif
+    let dir+='/..'
+    let c+=1
+  endwhile
+  return ""
+endfun
+
+
 fun! s:elmOracle(...)
-	let filename = expand("%")
+	let filename = expand("%:p")
+        let oldwd=getcwd()
+	let dir = s:findElmStuffParentDir(expand("%:p:h"))
+        if dir == ""
+          echoerr "Can't find elm-stuff directory"
+          return []
+        else
+          exec "lcd ".dir
+        endif
 
 	if a:0 == 0
 		let oldiskeyword = &iskeyword
@@ -69,6 +92,8 @@ fun! s:elmOracle(...)
 	endif
 
 	let infos = system("elm-oracle " . filename . " " . word)
+        exec "cd ".oldwd
+
 	let d = split(infos, '\n')
 	if len(d) > 0
 		return s:DecodeJSON(d[0])
@@ -76,7 +101,6 @@ fun! s:elmOracle(...)
 
 	return []
 endf
-
 " Query elm-oracle and echo the type and docs for the word under the cursor.
 fun! elm#ShowDocs()
 		let response = s:elmOracle()
