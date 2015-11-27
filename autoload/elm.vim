@@ -69,6 +69,11 @@ fun! s:elmOracle(...)
 	endif
 
 	let infos = system("elm-oracle " . filename . " " . word)
+        if v:shell_error != 0
+          echo "elm-oracle failed:\n\n" . infos
+          return []
+        endif
+
 	let d = split(infos, '\n')
 	if len(d) > 0
 		return s:DecodeJSON(d[0])
