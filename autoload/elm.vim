@@ -198,7 +198,7 @@ fun! elm#Complete(findstart, base)
 			let start = idx
 		endif
 
-		let s:fullComplete = line[idx : col('.')-1]
+		let s:fullComplete = line[idx : col('.')-2]
 
 		return start
 	else
