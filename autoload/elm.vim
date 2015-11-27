@@ -69,6 +69,11 @@ fun! s:elmOracle(...)
 	endif
 
 	let infos = system("elm-oracle " . filename . " " . word)
+        if v:shell_error != 0
+          echo "elm-oracle failed:\n\n" . infos
+          return []
+        endif
+
 	let d = split(infos, '\n')
 	if len(d) > 0
 		return s:DecodeJSON(d[0])
@@ -198,7 +203,7 @@ fun! elm#Complete(findstart, base)
 			let start = idx
 		endif
 
-		let s:fullComplete = line[idx : col('.')-1]
+		let s:fullComplete = line[idx : col('.')-2]
 
 		return start
 	else
