@@ -57,7 +57,13 @@ function! s:OpenBrowser(url)
 endfunction
 
 fun! s:elmOracle(...)
-	let filename = expand("%")
+	let project = finddir("elm-stuff/..", ".;")
+	if len(project) == 0
+		echoerr "`elm-stuff` not found! run `elm-package install` for autocomplete."
+		return []
+	endif
+
+	let filename = expand("%:p")
 
 	if a:0 == 0
 		let oldiskeyword = &iskeyword
@@ -68,7 +74,7 @@ fun! s:elmOracle(...)
 		let word = a:1
 	endif
 
-	let infos = system("elm-oracle " . filename . " " . word)
+	let infos = system("cd " . project . " && elm-oracle " . filename . " " . word)
         if v:shell_error != 0
           echo "elm-oracle failed:\n\n" . infos
           return []
