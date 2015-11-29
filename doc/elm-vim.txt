@@ -23,7 +23,7 @@ CONTENTS                                                         *elm-contents*
 ===============================================================================
 INTRO                                                               *elm-intro*
 
-Homepage: https://github.com/ajhager/elm-vim
+Homepage: https://github.com/elmcast/elm-vim
 
 Elm (http://elm-lang.org) support for Vim.
 
@@ -42,22 +42,22 @@ plugins.
 
 *  https://github.com/tpope/vim-pathogen >
 
-    git clone https://github.com/ajhager/elm-vim.git ~/.vim/bundle/elm-vim
+    git clone https://github.com/elmcast/elm-vim.git ~/.vim/bundle/elm-vim
 <
 
 *  https://github.com/junegunn/vim-plug >
 
-    Plug 'ajhager/elm-vim'
+    Plug 'elmcast/elm-vim'
 
 <
 *  https://github.com/Shougo/neobundle.vim >
 
-    NeoBundle 'ajhager/elm-vim'
+    NeoBundle 'elmcast/elm-vim'
 <
 
 *  https://github.com/gmarik/vundle >
 
-    Plugin 'ajhager/elm-vim'
+    Plugin 'elmcast/elm-vim'
 
 <
 *  Manually >
@@ -191,12 +191,12 @@ Make sure that you have correctly installed the elm platform from
 http://elm-lang.org.
 
 
-For all other issues, please see https://github.com/ajhager/elm-vim/issues.
+For all other issues, please see https://github.com/elmcast/elm-vim/issues.
 
 ===============================================================================
 CREDITS                                                           *elm-credits*
 
 * Other vim-plugins, thanks for inspiration (elm.vim, ocaml.vim, haskell-vim)
-* elm-vim contributors: https://github.com/ajhager/elm-vim/graphs/contributors
+* elm-vim contributors: https://github.com/elmcast/elm-vim/graphs/contributors
 
 vim:ft=help:et:ts=2:sw=2:sts=2:norl
