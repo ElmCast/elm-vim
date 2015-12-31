@@ -67,14 +67,19 @@ fun! s:elmOracle(...)
 
 	if a:0 == 0
 		let oldiskeyword = &iskeyword
-		setlocal iskeyword+=.
+                " Some non obvious values used in 'iskeyword':
+                "    @     = all alpha
+                "    48-57 = numbers 0 to 9
+                "    @-@   = character @
+                "    124   = |
+		setlocal iskeyword=@,48-57,@-@,_,-,~,!,#,$,%,&,*,+,=,<,>,/,?,.,\\,124,^
 		let word = expand('<cword>')
 		let &iskeyword = oldiskeyword
 	else
 		let word = a:1
 	endif
 
-	let infos = system("cd " . project . " && elm-oracle " . filename . " " . word)
+	let infos = system("cd " . shellescape(project) . " && elm-oracle " . shellescape(filename) . " " . shellescape(word))
         if v:shell_error != 0
           echo "elm-oracle failed:\n\n" . infos
           return []
