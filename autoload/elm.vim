@@ -109,7 +109,7 @@ fun! elm#BrowseDocs()
 		let response = s:elmOracle()
 		if len(response) > 0
 			let info = response[0]
-			call s:OpenBrowser(info.href)	
+			call s:OpenBrowser(info.href)
 		else
 			echon "elm-oracle: " | echohl Identifier |  echon "...no match found" | echohl None
 		endif
@@ -120,7 +120,7 @@ fun! elm#Make(...)
 	echon "elm-make: " | echohl Identifier | echon "building ..."| echohl None
 
 	let filename = (a:0 == 0) ? expand("%") : a:1
-	let reports = system("elm-make --report=json " . filename . " --output=". g:elm_make_output_file)
+	let reports = system("elm-make --report=json " . shellescape(filename) . " --output=" . shellescape(g:elm_make_output_file))
 
 	let s:errors = []
 	let fixes = []
@@ -186,7 +186,7 @@ endf
 " Test the given file, or the current file with 'Test' added if none is given.
 fun! elm#Test(...)
 	let l:file = (a:0 == 0) ? "Test" . expand("%") : a:1
-	echo system("elm-test " . l:file)
+	echo system("elm-test " . shellescape(l:file))
 endf
 
 " Open the elm repl in a subprocess.
