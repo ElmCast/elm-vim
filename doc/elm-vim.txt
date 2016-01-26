@@ -174,7 +174,7 @@ This setting configures the browser command used to browse docs.
   let g:elm_browser_command = ''
 <
 
-                                                    *'g:elm_detailed_copmlete'*
+                                                    *'g:elm_detailed_complete'*
 
 This setting toggles showing type signatures in the complete menu.
 >
