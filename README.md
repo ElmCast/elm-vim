@@ -37,7 +37,9 @@ Please be sure all necessary binaries are installed (such as `elm-make`, `elm-do
 
 You may also want to install `elm-test` with `npm install -g elm-test` if you want to run unit tests from within vim.
 
-You may also want to install `elm-oracle` with `npm install -g elm-oracle` if you want to query docs and types from within vim.
+## Completion and Docs
+
+In order to have completion for all functions inside packages in your `elm-package.json`, you must have `elm-oracle` on your path. Install it with `npm install -g elm-oracle`.
 
 ## Usage
 
