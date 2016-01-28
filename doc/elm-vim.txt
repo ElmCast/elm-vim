@@ -105,6 +105,10 @@ COMMANDS                                                         *elm-commands*
     ElmBrowseDocs queries elm-oracle, then opens docs web page for the
     word under the cursor.
 
+:ElmFormat
+
+    ElmFormat formats the current buffer with elm-format.
+
 ===============================================================================
 MAPPINGS                                                         *elm-mappings*
 
@@ -179,6 +183,13 @@ This setting configures the browser command used to browse docs.
 This setting toggles showing type signatures in the complete menu.
 >
   let g:elm_detailed_complete = 0
+<
+
+                                                      *'g:elm_format_autosave'*
+
+This setting toggles whether the current buffer should be formatted on save.
+>
+  let g:elm_format_autosave = 0
 <
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*

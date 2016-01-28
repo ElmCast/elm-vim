@@ -41,6 +41,10 @@ You may also want to install `elm-test` with `npm install -g elm-test` if you wa
 
 In order to have completion for all functions inside packages in your `elm-package.json`, you must have `elm-oracle` on your path. Install it with `npm install -g elm-oracle`.
 
+## Format Source
+
+To auto format your elm source code, you must have `elm-format` on your path. Install it from the [github page](https://github.com/avh4/elm-format)
+
 ## Usage
 
 Many of the [features](#features) are enabled by default. There are no
@@ -62,6 +66,8 @@ additional settings needed. All usages and commands are listed in
 * `:ElmShowDocs` queries elm-oracle, then echos the type and docs for the word under the cursor.
 
 * `:ElmBrowseDocs` queries elm-oracle, then opens docs web page for the word under the cursor.
+*
+* `:ElmFormat` formats the current buffer with elm-format.
 
 ## Mappings
 
@@ -88,6 +94,7 @@ let g:elm_make_output_file = "elm.js"
 let g:elm_make_show_warnings = 0
 let g:elm_browser_command = ""
 let g:elm_detailed_complete = 0
+let g:elm_format_autosave = 0
 ```
 
 ## Indentation

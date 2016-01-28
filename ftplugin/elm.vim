@@ -19,6 +19,10 @@ if !exists("g:elm_make_show_warnings")
 	let g:elm_make_show_warnings = 0
 endif
 
+if !exists("g:elm_format_autosave")
+	let g:elm_format_autosave = 0
+endif
+
 setlocal omnifunc=elm#Complete
 
 setlocal comments=:--
@@ -32,6 +36,7 @@ command -buffer ElmRepl call elm#Repl()
 command -buffer ElmErrorDetail call elm#ErrorDetail()
 command -buffer ElmShowDocs call elm#ShowDocs()
 command -buffer ElmBrowseDocs call elm#BrowseDocs()
+command -buffer ElmFormat call elm#Format()
 
 " Mappings
 nnoremap <silent> <Plug>(elm-make) :<C-u>call elm#Make()<CR>
@@ -41,3 +46,8 @@ nnoremap <silent> <Plug>(elm-repl) :<C-u>call elm#Repl()<CR>
 nnoremap <silent> <Plug>(elm-error-detail) :<C-u>call elm#ErrorDetail()<CR>
 nnoremap <silent> <Plug>(elm-show-docs) :<C-u>call elm#ShowDocs()<CR>
 nnoremap <silent> <Plug>(elm-browse-docs) :<C-u>call elm#BrowseDocs()<CR>
+
+" Elm code formatting on save
+if get(g:, "elm_format_autosave", 1)
+	autocmd BufWritePre *.elm call elm#Format()
+endif

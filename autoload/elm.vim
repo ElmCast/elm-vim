@@ -93,6 +93,36 @@ fun! s:elmOracle(...)
 	return []
 endf
 
+" Vim command to format Elm files with elm-format
+fun! elm#Format()
+	" save cursor position and many other things
+	let l:curw=winsaveview()
+
+	" write current unsaved buffer to a temporary file
+	let l:tmpname = tempname() . ".elm"
+	call writefile(getline(1, '$'), l:tmpname)
+
+	" call elm-format on the temporary file
+	let out = system("elm-format " . l:tmpname . " --output " . l:tmpname)
+
+	" if there is no error
+	if v:shell_error == 0
+		try | silent undojoin | catch | endtry
+
+		" replace current file with temp file, then reload buffer
+		let old_fileformat = &fileformat
+		call rename(l:tmpname, expand('%'))
+		silent edit!
+		let &fileformat = old_fileformat
+		let &syntax = &syntax
+	else
+		echon "elm-format: " | echohl WarningMsg | echon out | echohl None
+	endif
+
+	" restore our cursor/windows positions
+	call winrestview(l:curw)
+endf
+
 " Query elm-oracle and echo the type and docs for the word under the cursor.
 fun! elm#ShowDocs()
 		let response = s:elmOracle()
