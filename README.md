@@ -1,6 +1,6 @@
-# elm-vim [![Release](https://img.shields.io/github/release/elmcast/elm-vim.svg?style=flat-square)](https://github.com/elmcast/elm-vim/releases)
+# elm-vim
 
-Elm [elm-lang](http://elm-lang.org) support for Vim.
+[Elm](http://elm-lang.org) support for Vim.
 
 ## Compatibility
 
@@ -11,7 +11,8 @@ This plugin requires the error reporting features from Elm Platform 0.15.1 or ab
 * Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions
 * Improved Indentation
 * Commands and mappings for interfacing with the elm platform
-* Auto-complete
+* Auto-complete and Doc strings
+* Code formatting
 
 Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
