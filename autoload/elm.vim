@@ -1,61 +1,3 @@
-fun! s:DecodeJSON(s)
-  let true = 1
-  let false = 0
-  let null = 0
-	return eval(a:s)
-endf
-
-function! s:IsWin()
-	let win = ['win16', 'win32', 'win32unix', 'win64', 'win95']
-	for w in win
-		if (has(w))
-			return 1
-		endif
-	endfor
-
-	return 0
-endfunction
-
-function! s:get_browser_command()
-    let elm_browser_command = get(g:, 'elm_browser_command', '')
-    if elm_browser_command == ''
-        if s:IsWin()
-            let elm_browser_command = '!start rundll32 url.dll,FileProtocolHandler %URL%'
-        elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
-            let elm_browser_command = 'open %URL%'
-        elseif executable('xdg-open')
-            let elm_browser_command = 'xdg-open %URL%'
-        elseif executable('firefox')
-            let elm_browser_command = 'firefox %URL% &'
-        else
-            let elm_browser_command = ''
-        endif
-    endif
-    return elm_browser_command
-endfunction
-
-function! s:OpenBrowser(url)
-    let cmd = s:get_browser_command()
-    if len(cmd) == 0
-        redraw
-        echohl WarningMsg
-        echo "It seems that you don't have general web browser. Open URL below."
-        echohl None
-        echo a:url
-        return
-    endif
-    if cmd =~ '^!'
-        let cmd = substitute(cmd, '%URL%', '\=shellescape(a:url)', 'g')
-        silent! exec cmd
-    elseif cmd =~ '^:[A-Z]'
-        let cmd = substitute(cmd, '%URL%', '\=a:url', 'g')
-        exec cmd
-    else
-        let cmd = substitute(cmd, '%URL%', '\=shellescape(a:url)', 'g')
-        call system(cmd)
-    endif
-endfunction
-
 fun! s:elmOracle(...)
 	let project = finddir("elm-stuff/..", ".;")
 	if len(project) == 0
@@ -80,14 +22,14 @@ fun! s:elmOracle(...)
 	endif
 
 	let infos = system("cd " . shellescape(project) . " && elm-oracle " . shellescape(filename) . " " . shellescape(word))
-        if v:shell_error != 0
-          echo "elm-oracle failed:\n\n" . infos
-          return []
-        endif
+	if v:shell_error != 0
+		elm#util#EchoError("elm-oracle failed:\n\n", infos)
+		return []
+	endif
 
 	let d = split(infos, '\n')
 	if len(d) > 0
-		return s:DecodeJSON(d[0])
+		return elm#util#DecodeJSON(d[0])
 	endif
 
 	return []
@@ -95,6 +37,11 @@ endf
 
 " Vim command to format Elm files with elm-format
 fun! elm#Format()
+	" check for elm-format
+	if elm#util#CheckBin("elm-format", "https://github.com/avh4/elm-format") == ""
+		return
+	endif
+
 	" save cursor position and many other things
 	let l:curw=winsaveview()
 
@@ -116,7 +63,7 @@ fun! elm#Format()
 		let &fileformat = old_fileformat
 		let &syntax = &syntax
 	else
-		echon "elm-format: " | echohl WarningMsg | echon out | echohl None
+		call elm#util#EchoError("elm-format:", out)
 	endif
 
 	" restore our cursor/windows positions
@@ -125,29 +72,46 @@ endf
 
 " Query elm-oracle and echo the type and docs for the word under the cursor.
 fun! elm#ShowDocs()
-		let response = s:elmOracle()
-		if len(response) > 0
-			let info = response[0]
-			redraws! | echohl Identifier | echon info.fullName | echohl None | echon " : " | echohl Function | echon info.signature | echohl None | echon "\n\n" . info.comment
-		else
-			echon "elm-oracle: " | echohl Identifier |  echon "...no match found" | echohl None
-		endif
+	" check for the elm-oracle binary
+	if elm#util#CheckBin("elm-oracle", "https://github.com/elmcast/elm-oracle") == ""
+		return
+	endif
+
+	let response = s:elmOracle()
+
+	if len(response) > 0
+		let info = response[0]
+		redraws! | echohl Identifier | echon info.fullName | echohl None | echon " : " | echohl Function | echon info.signature | echohl None | echon "\n\n" . info.comment
+	else
+		call elm#util#Echo("elm-oracle:", "...no match found")
+	endif
 endf
 
 " Query elm-oracle and open the docs for the word under the cursor.
 fun! elm#BrowseDocs()
-		let response = s:elmOracle()
-		if len(response) > 0
-			let info = response[0]
-			call s:OpenBrowser(info.href)
-		else
-			echon "elm-oracle: " | echohl Identifier |  echon "...no match found" | echohl None
-		endif
+	" check for the elm-oracle binary
+	if elm#util#CheckBin("elm-oracle", "https://github.com/elmcast/elm-oracle") == ""
+		return
+	endif
+
+	let response = s:elmOracle()
+
+	if len(response) > 0
+		let info = response[0]
+		call elm#util#OpenBrowser(info.href)
+	else
+		call elm#util#Echo("elm-oracle:", "...no match found")
+	endif
 endf
 
 " Make the given file, or the current file if none is given.
 fun! elm#Make(...)
-	echon "elm-make: " | echohl Identifier | echon "building ..."| echohl None
+	" check for elm-make
+	if elm#util#CheckBin("elm-make", "http://elm-lang.org/install") == ""
+		return
+	endif
+
+	call elm#util#Echo("elm-make:", "building...")
 
 	let filename = (a:0 == 0) ? expand("%") : a:1
 	let reports = system("elm-make --report=json " . shellescape(filename) . " --output=" . shellescape(g:elm_make_output_file))
@@ -160,7 +124,7 @@ fun! elm#Make(...)
 	" Save error reports for use with ErrorDetails.
 	for report in split(reports, '\n')
 		if report[0] == '['
-			for error in s:DecodeJSON(report)
+			for error in elm#util#DecodeJSON(report)
 				" Filter out warnings if user only wants to see errors.
 				if g:elm_make_show_warnings == 0 && error.type == "warning"
 				else
@@ -179,8 +143,7 @@ fun! elm#Make(...)
 
 	" Echo messages and add fixes to the quickfix window.
 	if len(fixes) > 0
-		let message = "found " . len(fixes) . " errors"
-		redraws! | echon " " | echohl Function | echon message | echohl None
+		call elm#util#EchoWarning("", "found " . len(fixes) . " errors")
 
 		call setqflist(fixes, 'r')
 		cwindow
@@ -189,8 +152,7 @@ fun! elm#Make(...)
 			cc 1
 		endif
 	else
-		let message = join(rawlines, "\n")
-		redraws! | echon " " | echohl Function | echon message | echohl None
+		call elm#util#EchoSuccess("", join(rawlines, "\n"))
 
 		call setqflist([])
 		cwindow
@@ -215,6 +177,11 @@ endf
 
 " Test the given file, or the current file with 'Test' added if none is given.
 fun! elm#Test(...)
+	" check for elm-test
+	if elm#util#CheckBin("elm-test", "https://github.com/rtfeldman/node-elm-test") == ""
+		return
+	endif
+
 	let l:file = (a:0 == 0) ? "Test" . expand("%") : a:1
 	echo system("elm-test " . shellescape(l:file))
 endf
@@ -248,6 +215,11 @@ fun! elm#Complete(findstart, base)
 
 		return start
 	else
+		" check for the elm-oracle binary
+		if elm#util#CheckBin("elm-oracle", "https://github.com/elmcast/elm-oracle") == ""
+			return []
+		endif
+
 		let res = []
 		let response = s:elmOracle(s:fullComplete)
 
