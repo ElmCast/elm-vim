@@ -188,7 +188,16 @@ endf
 
 " Open the elm repl in a subprocess.
 fun! elm#Repl()
-	!elm-repl
+	" check for the elm-repl binary
+	if elm#util#CheckBin("elm-repl", "http://elm-lang.org/install") == ""
+		return
+	endif
+
+	if has('nvim')
+		call termopen("elm-repl")
+	else
+		!elm-repl
+	endif
 endf
 
 let s:fullComplete = ""
