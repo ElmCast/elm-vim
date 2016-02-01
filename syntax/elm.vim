@@ -4,8 +4,13 @@ if exists("b:current_syntax")
   finish
 endif
 
+" Import
+syntax match elmExposing "\<exposing\>" contained containedin=elmImport
+syntax match elmExposingError "(.\{-})" contained containedin=elmImport
+syntax match elmImport "\<import\>\s\+[A-Z][a-zA-Z0-9_.]*\s*" nextgroup=elmExposing,elmExposingError
+
 " Keywords
-syn keyword elmKeyword alias as case else exposing if import in let module of port then type where
+syn keyword elmKeyword alias as case else if in let module of port then type where
 
 " Operators
 syn match elmOperator "\([-!#$%&\*\+./<=>\?@\\^|~:]\|\<_\>\)"
@@ -62,5 +67,8 @@ hi def link elmNumberType Type
 hi def link elmInt Number
 hi def link elmFloat Number
 hi def link elmDelimiter Delimiter
+hi def link elmImport Keyword
+hi def link elmExposing Keyword
+hi def link elmExposingError Error
 
 let b:current_syntax = "elm"
