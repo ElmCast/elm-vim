@@ -51,3 +51,23 @@ nnoremap <silent> <Plug>(elm-browse-docs) :<C-u>call elm#BrowseDocs()<CR>
 if get(g:, "elm_format_autosave", 1)
 	autocmd BufWritePre *.elm call elm#Format()
 endif
+
+" Enable go to file under cursor from module name
+" Based on: https://github.com/elixir-lang/vim-elixir/blob/bd66ed134319d1e390f3331e8c4d525109f762e8/ftplugin/elixir.vim#L22-L56
+function! GetElmFilename(word)
+  let word = a:word
+
+  " replace module dots with slash
+  let word = substitute(word,'\.','/','g')
+
+  return word
+endfunction
+
+let &l:path =
+      \ join([
+      \   getcwd().'/src',
+      \   getcwd().'/elm-stuff/packages/**/src',
+      \   &g:path
+      \ ], ',')
+setlocal includeexpr=GetElmFilename(v:fname)
+setlocal suffixesadd=.elm
