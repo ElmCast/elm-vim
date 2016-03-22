@@ -42,8 +42,8 @@ fun! elm#Format()
 		return
 	endif
 
-	" save cursor position and many other things
-	let l:curw=winsaveview()
+	" save cursor position, folds and many other things
+	mkview!
 
 	" write current unsaved buffer to a temporary file
 	let l:tmpname = tempname() . ".elm"
@@ -66,8 +66,8 @@ fun! elm#Format()
 		call elm#util#EchoError("elm-format:", out)
 	endif
 
-	" restore our cursor/windows positions
-	call winrestview(l:curw)
+	" restore our cursor/windows positions, folds, etc..
+	silent! loadview
 endf
 
 " Query elm-oracle and echo the type and docs for the word under the cursor.
