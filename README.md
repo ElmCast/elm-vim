@@ -42,6 +42,15 @@ You may also want to install `elm-test` with `npm install -g elm-test` if you wa
 
 In order to have completion for all functions inside packages in your `elm-package.json`, you must have `elm-oracle` on your path. Install it with `npm install -g elm-oracle`.
 
+If you use [YouCompleteMe](https://github.com/Valloric/YouCompleteMe) you
+can use the semantic completer by adding the following to your `.vimrc`:
+
+```vim
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
+```
+
 ## Format Source
 
 To auto format your elm source code, you must have `elm-format` on your path. Install it from the [github page](https://github.com/avh4/elm-format)
