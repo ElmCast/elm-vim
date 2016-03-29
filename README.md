@@ -33,22 +33,33 @@ plugins.
 *  Manually
 	* Copy all of the files into your `~/.vim` directory
 
-Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`,
-`elm-reactor`, etc..) from http://elm-lang.org/.
+Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`, `elm-reactor`, etc..) from http://elm-lang.org/.
 
 You may also want to install `elm-test` with `npm install -g elm-test` if you want to run unit tests from within vim.
 
 ## Completion and Docs
 
-In order to have completion for all functions inside packages in your `elm-package.json`, you must have `elm-oracle` on your path. Install it with `npm install -g elm-oracle`.
+In order to have completion for all functions inside packages in your `elm-package.json`, you must have `elm-oracle` on your path.
 
-If you use [YouCompleteMe](https://github.com/Valloric/YouCompleteMe) you
-can use the semantic completer by adding the following to your `.vimrc`:
+```
+npm install -g elm-oracle
+```
+
+## [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
 
 ```vim
 let g:ycm_semantic_triggers = {
      \ 'elm' : ['.'],
      \}
+```
+
+## [Neocomplete](https://github.com/Shougo/neocomplete.vim)
+
+```vim
+call neocomplete#util#set_default_dictionary(
+  \ 'g:neocomplete#sources#omni#input_patterns',
+  \ 'elm',
+  \ '\.')
 ```
 
 ## Format Source
