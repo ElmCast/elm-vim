@@ -6,7 +6,7 @@
 
 1. Syntax highlighting
 1. Automatic Indentation
-1. Documentation and Type Lookup
+1. Documentation Lookup
 1. Integration with [elm-make](https://github.com/elm-lang/elm-make)
 1. Integration with [elm-repl](https://github.com/elm-lang/elm-repl)
 1. Integration with [elm-package](https://github.com/elm-lang/elm-package)
@@ -17,7 +17,7 @@
 
 Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
-![errors and completion](/screenshots/errors-and-completion.png)
+![errors and completion](/screenshots/errors_and_completion.png)
 
 ## Install
 
