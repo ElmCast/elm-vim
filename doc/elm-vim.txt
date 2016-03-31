@@ -171,6 +171,13 @@ This setting configures if warnings should be shown in the quickfix window.
   let g:elm_make_show_warnings = 0
 <
 
+                                              *'g:elm_syntastic_show_warnings'*
+
+This setting configures if warnings should be sent to syntastic.
+>
+  let g:elm_syntastic_show_warnings = 0
+<
+
                                                       *'g:elm_browser_command'*
 
 This setting configures the browser command used to browse docs.

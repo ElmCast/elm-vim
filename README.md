@@ -2,10 +2,6 @@
 
 [Elm](http://elm-lang.org) support for Vim.
 
-## Compatibility
-
-This plugin requires the error reporting features from Elm Platform 0.15.1 or above.
-
 ## Features
 
 * Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions
@@ -18,31 +14,72 @@ Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
 ## Install
 
-Elm-vim follows the standard runtime path structure, so you should use a common
-and well known plugin manager to install it. Do not use elm-vim with other Elm
-plugins.
-
-*  [Pathogen](https://github.com/tpope/vim-pathogen)
-  * `git clone https://github.com/elmcast/elm-vim.git ~/.vim/bundle/elm-vim`
-*  [vim-plug](https://github.com/junegunn/vim-plug)
-  * `Plug 'elmcast/elm-vim'`
-*  [NeoBundle](https://github.com/Shougo/neobundle.vim)
-  * `NeoBundle 'elmcast/elm-vim'`
-*  [Vundle](https://github.com/gmarik/vundle)
-  * `Plugin 'elmcast/elm-vim'`
-*  Manually
-	* Copy all of the files into your `~/.vim` directory
+Elm-vim follows the standard runtime path structure, so you can use your favorite plugin manager to install it.
 
 Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`, `elm-reactor`, etc..) from http://elm-lang.org/.
 
-You may also want to install `elm-test` with `npm install -g elm-test` if you want to run unit tests from within vim.
+```
+npm install -g elm
+```
 
-## Completion and Docs
+In order to run unit tests from within vim, install `elm-test`.
 
-In order to have completion for all functions inside packages in your `elm-package.json`, you must have `elm-oracle` on your path.
+```
+npm install -g elm-test
+```
+
+For code completion and doc lookups, install `elm-oracle`.
 
 ```
 npm install -g elm-oracle
+```
+
+To automatically format your code, install `elm-format` from the [github page](https://github.com/avh4/elm-format).
+
+```vim
+let g:elm_format_autosave = 1
+```
+
+## Settings
+
+Below are some (default) settings you might find useful to change.
+
+```
+let g:elm_jump_to_error = 1
+let g:elm_make_output_file = "elm.js"
+let g:elm_make_show_warnings = 0
+let g:elm_syntastic_show_warnings = 0
+let g:elm_browser_command = ""
+let g:elm_detailed_complete = 0
+let g:elm_format_autosave = 0
+```
+
+## Mappings
+
+Elm-vim has several `<Plug>` mappings which can be used to create custom
+mappings. Below are some examples you might find useful:
+
+```vim
+au FileType elm nmap <leader>b <Plug>(elm-make)
+au FileType elm nmap <leader>m <Plug>(elm-make-main)
+au FileType elm nmap <leader>t <Plug>(elm-test)
+au FileType elm nmap <leader>r <Plug>(elm-repl)
+au FileType elm nmap <leader>e <Plug>(elm-error-detail)
+au FileType elm nmap <leader>d <Plug>(elm-show-docs)
+au FileType elm nmap <leader>w <Plug>(elm-browse-docs)
+```
+
+# Integration
+
+## [Syntastic](https://github.com/scrooloose/syntastic)
+
+Syntastic support should work out of the box, but we recommend the following settings:
+
+```vim
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+
+let g:elm_syntastic_show_warnings = 1
 ```
 
 ## [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
@@ -61,10 +98,6 @@ call neocomplete#util#set_default_dictionary(
   \ 'elm',
   \ '\.')
 ```
-
-## Format Source
-
-To auto format your elm source code, you must have `elm-format` on your path. Install it from the [github page](https://github.com/avh4/elm-format)
 
 ## Usage
 
@@ -89,38 +122,6 @@ additional settings needed. All usages and commands are listed in
 * `:ElmBrowseDocs` queries elm-oracle, then opens docs web page for the word under the cursor.
 *
 * `:ElmFormat` formats the current buffer with elm-format.
-
-## Mappings
-
-Elm-vim has several `<Plug>` mappings which can be used to create custom
-mappings. Below are some examples you might find useful:
-
-```vim
-au FileType elm nmap <leader>b <Plug>(elm-make)
-au FileType elm nmap <leader>m <Plug>(elm-make-main)
-au FileType elm nmap <leader>t <Plug>(elm-test)
-au FileType elm nmap <leader>r <Plug>(elm-repl)
-au FileType elm nmap <leader>e <Plug>(elm-error-detail)
-au FileType elm nmap <leader>d <Plug>(elm-show-docs)
-au FileType elm nmap <leader>w <Plug>(elm-browse-docs)
-```
-
-## Settings
-
-Below are some (default) settings you might find useful to change.
-
-```
-let g:elm_jump_to_error = 1
-let g:elm_make_output_file = "elm.js"
-let g:elm_make_show_warnings = 0
-let g:elm_browser_command = ""
-let g:elm_detailed_complete = 0
-let g:elm_format_autosave = 0
-```
-
-## Indentation
-
-The current indentation function is still rough, but should work for a lot of cases. It is not always possible to know the perfect indentation level just from context, but we should be able to generate a list of candidates.
 
 ## Credits
 

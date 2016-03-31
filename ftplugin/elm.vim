@@ -19,6 +19,10 @@ if !exists("g:elm_make_show_warnings")
 	let g:elm_make_show_warnings = 0
 endif
 
+if !exists("g:elm_syntastic_show_warnings")
+	let g:elm_syntastic_show_warnings = 0
+endif
+
 if !exists("g:elm_format_autosave")
 	let g:elm_format_autosave = 0
 endif

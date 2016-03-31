@@ -1,3 +1,5 @@
+let s:errors = []
+
 fun! s:elmOracle(...)
 	let project = finddir("elm-stuff/..", ".;")
 	if len(project) == 0
@@ -104,32 +106,21 @@ fun! elm#BrowseDocs()
 	endif
 endf
 
-" Make the given file, or the current file if none is given.
-fun! elm#Make(...)
-	" check for elm-make
-	if elm#util#CheckBin("elm-make", "http://elm-lang.org/install") == ""
-		return
-	endif
-
-	call elm#util#Echo("elm-make:", "building...")
-
-	let filename = (a:0 == 0) ? expand("%") : a:1
-	let reports = system("elm-make --report=json " . shellescape(filename) . " --output=" . shellescape(g:elm_make_output_file))
-
+fun! elm#Build(input, output, show_warnings)
 	let s:errors = []
 	let fixes = []
 	let rawlines = []
+	let reports = system("elm-make --report=json " . shellescape(a:input) . " --output=" . shellescape(a:output))
 
-	" Parse reports into errors and raw lines of text.
-	" Save error reports for use with ErrorDetails.
 	for report in split(reports, '\n')
 		if report[0] == '['
 			for error in elm#util#DecodeJSON(report)
-				" Filter out warnings if user only wants to see errors.
-				if g:elm_make_show_warnings == 0 && error.type == "warning"
+				if a:show_warnings == 0 && error.type == "warning"
 				else
 					call add(s:errors, error)
 					call add(fixes, {"filename": error.file,
+								\"valid": 1,
+								\"bufnr": bufnr('%'),
 								\"type": (error.type == "error") ? 'E' : 'W',
 								\"lnum": error.region.start.line,
 								\"col": error.region.start.column,
@@ -141,28 +132,61 @@ fun! elm#Make(...)
 		endif
 	endfor
 
-	" Echo messages and add fixes to the quickfix window.
+	let details = join(rawlines, "\n")
+	let lines = split(details, "\n")
+	if !empty(lines)
+		let overview = lines[0]
+	else
+		let overview = ""
+	endif
+
+	if details == '' || details =~ '^Successfully.*'
+	else
+		call add(s:errors, {"overview": details, "details": details})
+		call add(fixes, {"filename": expand('%', 1),
+					\"valid": 1,
+					\"bufnr": bufnr('%'),
+					\"type": 'E',
+					\"lnum": 0,
+					\"col": 0,
+					\"text": overview})
+	endif
+
+	return fixes
+endf
+
+" Make the given file, or the current file if none is given.
+fun! elm#Make(...)
+	if elm#util#CheckBin("elm-make", "http://elm-lang.org/install") == ""
+		return
+	endif
+
+	call elm#util#Echo("elm-make:", "building...")
+
+	let input = (a:0 == 0) ? expand("%") : a:1
+	let fixes = elm#Build(input, g:elm_make_output_file, g:elm_make_show_warnings)
+
 	if len(fixes) > 0
 		call elm#util#EchoWarning("", "found " . len(fixes) . " errors")
 
-		call setqflist(fixes, 'r')
-		cwindow
+		call setloclist(0, fixes, 'r')
+		lwindow
 
 		if get(g:, "elm_jump_to_error", 1)
-			cc 1
+			ll 1
 		endif
 	else
-		call elm#util#EchoSuccess("", join(rawlines, "\n"))
+		call elm#util#EchoSuccess("", "Sucessfully compiled")
 
-		call setqflist([])
-		cwindow
+		call setloclist(0, [])
+		lwindow
 	endif
 endf
 
 " Show the detail of the current error in the quickfix window.
 fun! elm#ErrorDetail()
 	if !empty(filter(tabpagebuflist(), 'getbufvar(v:val, "&buftype") ==# "quickfix"'))
-		exec ":copen"
+		exec ":lopen"
 		let linenr = line(".")
 		exec ":wincmd p"
 		if len(s:errors) > 0
