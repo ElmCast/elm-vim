@@ -5,19 +5,14 @@
 ## Features
 
 1. Syntax highlighting
-1. Automatic Indentation
-1. Documentation Lookup
-1. Integration with [elm-make](https://github.com/elm-lang/elm-make)
-1. Integration with [elm-repl](https://github.com/elm-lang/elm-repl)
-1. Integration with [elm-package](https://github.com/elm-lang/elm-package)
-1. Integration with [elm-oracle](https://github.com/elmcast/elm-oracle)
-1. Integration with [elm-format](https://github.com/avh4/elm-format)
-1. Integration with [elm-test](https://github.com/deadfoxygrandpa/elm-test)
-1. Integration with [syntastic](https://github.com/scrooloose/syntastic)
+1. Automatic indentation
+1. Function completion
+1. Build and package commands
+1. Code formating and linting
+1. Documentation lookup
+1. Repl integration
 
 Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
-
-![errors and completion](/screenshots/errors_and_completion.png)
 
 ## Install
 
@@ -133,6 +128,10 @@ let g:elm_setup_keybindings = 1
 * `:ElmBrowseDocs` queries elm-oracle, then opens docs web page for the word under the cursor.
 *
 * `:ElmFormat` formats the current buffer with elm-format.
+
+## Screenshots
+
+![errors and completion](/screenshots/errors_and_completion.png)
 
 ## Credits
 
