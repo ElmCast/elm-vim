@@ -184,6 +184,12 @@ This setting configures the browser command used to browse docs.
 >
   let g:elm_browser_command = ''
 <
+                                                    *'g:elm_setup_keybindings'*
+
+This setting toggles adding some default command keybindings.
+>
+  let g:elm_setup_keybindings = 1
+<
 
                                                     *'g:elm_detailed_complete'*
 

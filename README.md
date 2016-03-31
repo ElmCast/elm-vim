@@ -4,17 +4,22 @@
 
 ## Features
 
-* Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions
-* Improved Indentation
-* Commands and mappings for interfacing with the elm platform
-* Auto-complete and Doc strings
-* Code formatting
+1. Syntax highlighting
+1. Automatic Indentation
+1. Documentation and Type Lookup
+1. Integration with [elm-make](https://github.com/elm-lang/elm-make)
+1. Integration with [elm-repl](https://github.com/elm-lang/elm-repl)
+1. Integration with [elm-package](https://github.com/elm-lang/elm-package)
+1. Integration with [elm-oracle](https://github.com/elmcast/elm-oracle)
+1. Integration with [elm-format](https://github.com/avh4/elm-format)
+1. Integration with [elm-test](https://github.com/deadfoxygrandpa/elm-test)
+1. Integration with [syntastic](https://github.com/scrooloose/syntastic)
 
 Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
 ## Install
 
-Elm-vim follows the standard runtime path structure, so you can use your favorite plugin manager to install it.
+elm-vim follows the standard runtime path structure, so you can use your favorite plugin manager to install it.
 
 Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`, `elm-reactor`, etc..) from http://elm-lang.org/.
 
@@ -40,33 +45,26 @@ To automatically format your code, install `elm-format` from the [github page](h
 let g:elm_format_autosave = 1
 ```
 
-## Settings
-
-Below are some (default) settings you might find useful to change.
-
-```
-let g:elm_jump_to_error = 1
-let g:elm_make_output_file = "elm.js"
-let g:elm_make_show_warnings = 0
-let g:elm_syntastic_show_warnings = 0
-let g:elm_browser_command = ""
-let g:elm_detailed_complete = 0
-let g:elm_format_autosave = 0
-```
-
 ## Mappings
 
-Elm-vim has several `<Plug>` mappings which can be used to create custom
-mappings. Below are some examples you might find useful:
+The plugin provides several `<Plug>` mappings which can be used to create custom
+mappings. The following keybindings are provided by default:
+
+| Keybinding             | Description                                                         |
+| ---------------------- | ------------------------------------------------------------------- |
+| <Leader>m              | Compile the current buffer.                                         |
+| <Leader>b              | Compile the Main.elm file in the project.                           |
+| <Leader>t              | Runs the tests of the current buffer.                               |
+| <Leader>r              | Opens an elm repl in a subprocess.                                  |
+| <Leader>e              | Shows the detail of the current error or warning.                   |
+| <Leader>d              | Shows the type and docs for the word under the cursor.              |
+| <Leader>w              | Opens the docs web page for the word under the cursor.              |
+
+
+You can disable these mappings if you want to use your own.
 
 ```vim
-au FileType elm nmap <leader>b <Plug>(elm-make)
-au FileType elm nmap <leader>m <Plug>(elm-make-main)
-au FileType elm nmap <leader>t <Plug>(elm-test)
-au FileType elm nmap <leader>r <Plug>(elm-repl)
-au FileType elm nmap <leader>e <Plug>(elm-error-detail)
-au FileType elm nmap <leader>d <Plug>(elm-show-docs)
-au FileType elm nmap <leader>w <Plug>(elm-browse-docs)
+let g:elm_setup_keybindings = 0
 ```
 
 # Integration
@@ -106,6 +104,17 @@ additional settings needed. All usages and commands are listed in
 `doc/elm-vim.txt`.
 
     :help elm-vim
+
+```vim
+let g:elm_jump_to_error = 1
+let g:elm_make_output_file = "elm.js"
+let g:elm_make_show_warnings = 0
+let g:elm_syntastic_show_warnings = 0
+let g:elm_browser_command = ""
+let g:elm_detailed_complete = 0
+let g:elm_format_autosave = 0
+let g:elm_setup_keybindings = 1
+```
 
 * `:ElmMake [filename]` calls `elm-make` with the given file. If no file is given it uses the current file being edited.
 

@@ -27,6 +27,10 @@ if !exists("g:elm_format_autosave")
 	let g:elm_format_autosave = 0
 endif
 
+if !exists("g:elm_setup_keybindings")
+	let g:elm_setup_keybindings = 1
+endif
+
 setlocal omnifunc=elm#Complete
 
 setlocal comments=:--
@@ -50,6 +54,16 @@ nnoremap <silent> <Plug>(elm-repl) :<C-u>call elm#Repl()<CR>
 nnoremap <silent> <Plug>(elm-error-detail) :<C-u>call elm#ErrorDetail()<CR>
 nnoremap <silent> <Plug>(elm-show-docs) :<C-u>call elm#ShowDocs()<CR>
 nnoremap <silent> <Plug>(elm-browse-docs) :<C-u>call elm#BrowseDocs()<CR>
+
+if get(g:, "elm_setup_keybindings", 1)
+	au FileType elm nmap <leader>m <Plug>(elm-make)
+	au FileType elm nmap <leader>b <Plug>(elm-make-main)
+	au FileType elm nmap <leader>t <Plug>(elm-test)
+	au FileType elm nmap <leader>r <Plug>(elm-repl)
+	au FileType elm nmap <leader>e <Plug>(elm-error-detail)
+	au FileType elm nmap <leader>d <Plug>(elm-show-docs)
+	au FileType elm nmap <leader>w <Plug>(elm-browse-docs)
+endif
 
 " Elm code formatting on save
 if get(g:, "elm_format_autosave", 1)
