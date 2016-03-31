@@ -17,6 +17,8 @@
 
 Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
+![errors and completion](/screenshots/errors-and-completion.png)
+
 ## Install
 
 elm-vim follows the standard runtime path structure, so you can use your favorite plugin manager to install it.
