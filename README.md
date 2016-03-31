@@ -52,13 +52,13 @@ mappings. The following keybindings are provided by default:
 
 | Keybinding             | Description                                                         |
 | ---------------------- | ------------------------------------------------------------------- |
-| <Leader>m              | Compile the current buffer.                                         |
-| <Leader>b              | Compile the Main.elm file in the project.                           |
-| <Leader>t              | Runs the tests of the current buffer.                               |
-| <Leader>r              | Opens an elm repl in a subprocess.                                  |
-| <Leader>e              | Shows the detail of the current error or warning.                   |
-| <Leader>d              | Shows the type and docs for the word under the cursor.              |
-| <Leader>w              | Opens the docs web page for the word under the cursor.              |
+| \<Leader>m              | Compile the current buffer.                                        |
+| \<Leader>b              | Compile the Main.elm file in the project.                          |
+| \<Leader>t              | Runs the tests of the current buffer.                              |
+| \<Leader>r              | Opens an elm repl in a subprocess.                                 |
+| \<Leader>e              | Shows the detail of the current error or warning.                  |
+| \<Leader>d              | Shows the type and docs for the word under the cursor.             |
+| \<Leader>w              | Opens the docs web page for the word under the cursor.             |
 
 
 You can disable these mappings if you want to use your own.
