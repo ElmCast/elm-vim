@@ -14,29 +14,33 @@
 
 Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
-## Install
+## Installation
 
-elm-vim follows the standard runtime path structure, so you can use your favorite plugin manager to install it.
+If you don't have a preferred installation method, I recommend installing [vim-plug](https://github.com/junegunn/vim-plug), and then simply adding `Plug 'elmcast/elm-vim` to your plugin section:
 
-Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`, `elm-reactor`, etc..) from http://elm-lang.org/.
+Once help tags have been generated, you can view the manual with :help elm-vim.
+
+### Requirements
+
+First, make sure you have the (Elm Platform)(http://elm-lang.org/install) installed. The simplest method to get started fast is to use the official npm package.
 
 ```
 npm install -g elm
 ```
 
-In order to run unit tests from within vim, install `elm-test`.
+In order to run unit tests from within vim, install [elm-test](https://github.com/rtfeldman/node-elm-test)
 
 ```
 npm install -g elm-test
 ```
 
-For code completion and doc lookups, install `elm-oracle`.
+For code completion and doc lookups, install [elm-oracle](https://github.com/elmcast/elm-oracle).
 
 ```
 npm install -g elm-oracle
 ```
 
-To automatically format your code, install `elm-format` from the [github page](https://github.com/avh4/elm-format).
+To automatically format your code, install `elm-format` from its [github page](https://github.com/avh4/elm-format).
 
 ```vim
 let g:elm_format_autosave = 1
@@ -57,16 +61,15 @@ mappings. The following keybindings are provided by default:
 | \<Leader>d              | Shows the type and docs for the word under the cursor.             |
 | \<Leader>w              | Opens the docs web page for the word under the cursor.             |
 
-
 You can disable these mappings if you want to use your own.
 
 ```vim
 let g:elm_setup_keybindings = 0
 ```
 
-# Integration
+## Integration
 
-## [Syntastic](https://github.com/scrooloose/syntastic)
+### [Syntastic](https://github.com/scrooloose/syntastic)
 
 Syntastic support should work out of the box, but we recommend the following settings:
 
@@ -77,7 +80,7 @@ let g:syntastic_auto_loc_list = 1
 let g:elm_syntastic_show_warnings = 1
 ```
 
-## [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
+### [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
 
 ```vim
 let g:ycm_semantic_triggers = {
@@ -85,7 +88,7 @@ let g:ycm_semantic_triggers = {
      \}
 ```
 
-## [Neocomplete](https://github.com/Shougo/neocomplete.vim)
+### [Neocomplete](https://github.com/Shougo/neocomplete.vim)
 
 ```vim
 call neocomplete#util#set_default_dictionary(
@@ -96,11 +99,9 @@ call neocomplete#util#set_default_dictionary(
 
 ## Usage
 
-Many of the [features](#features) are enabled by default. There are no
-additional settings needed. All usages and commands are listed in
-`doc/elm-vim.txt`.
-
-    :help elm-vim
+```vim
+:help elm-vim
+```
 
 ```vim
 let g:elm_jump_to_error = 1
@@ -140,4 +141,4 @@ let g:elm_setup_keybindings = 1
 
 ## License
 
-The BSD 3-Clause License - see `LICENSE` for more details
+Copyright © Joseph Hager. See `LICENSE` for more details.
