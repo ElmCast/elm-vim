@@ -16,13 +16,13 @@ Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
 ## Installation
 
-If you don't have a preferred installation method, I recommend installing [vim-plug](https://github.com/junegunn/vim-plug), and then simply adding `Plug 'elmcast/elm-vim` to your plugin section:
+If you don't have a preferred installation method, I recommend installing [vim-plug](https://github.com/junegunn/vim-plug), and then simply add `Plug 'elmcast/elm-vim` to your plugin section:
 
 Once help tags have been generated, you can view the manual with :help elm-vim.
 
 ### Requirements
 
-First, make sure you have the (Elm Platform)(http://elm-lang.org/install) installed. The simplest method to get started fast is to use the official npm package.
+First, make sure you have the [Elm Platform](http://elm-lang.org/install) installed. The simplest method to get started is to use the official [npm](https://www.npmjs.com/package/elm) package.
 
 ```
 npm install -g elm
