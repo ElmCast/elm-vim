@@ -141,7 +141,7 @@ let g:elm_classic_hightlighting = 0
 
 ## Screenshots
 
-![errors and completion](/screenshots/errors_and_completion.png)
+![errors and completion](/screenshots/syntax_highlighting.png)
 
 ## Credits
 
