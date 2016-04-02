@@ -1,8 +1,6 @@
-<h1>
-<img src="https://raw.github.com/elmcast/elm-vim/master/logo.png" />  elm-vim
-</h1>
+# elm-vim
 
-> elm-vim is an awesome development environment for the [Elm](http://elm-lang.org) programming language
+![logo](https://raw.github.com/elmcast/elm-vim/master/screenshots/logo.png)
 
 ## Features
 
@@ -143,7 +141,7 @@ let g:elm_classic_hightlighting = 0
 
 ## Screenshots
 
-![errors and completion](https://raw.github.com/elmcast/elm-vim/master/syntax_highlighting.png)
+![errors and completion](https://raw.github.com/elmcast/elm-vim/master/screenshots/syntax_highlighting.png)
 
 ## Credits
 
