@@ -1,6 +1,8 @@
-# elm-vim
+<h1>
+<img src="https://raw.github.com/elmcast/elm-vim/master/logo.png" />  elm-vim
+</h1>
 
-[Elm](http://elm-lang.org) support for Vim.
+> elm-vim is an awesome development environment for the [Elm](http://elm-lang.org) programming language
 
 ## Features
 
@@ -141,7 +143,7 @@ let g:elm_classic_hightlighting = 0
 
 ## Screenshots
 
-![errors and completion](/screenshots/syntax_highlighting.png)
+![errors and completion](https://raw.github.com/elmcast/elm-vim/master/syntax_highlighting.png)
 
 ## Credits
 
