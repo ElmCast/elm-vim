@@ -204,6 +204,13 @@ This setting toggles whether the current buffer should be formatted on save.
 >
   let g:elm_format_autosave = 0
 <
+
+                                                 *'g:elm_classic_highlighting'*
+
+This setting toggles whether to use a more traditional mode of highlighting.
+>
+  let g:elm_classic_highlighting = 0
+<
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*
 

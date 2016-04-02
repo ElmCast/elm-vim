@@ -67,6 +67,14 @@ You can disable these mappings if you want to use your own.
 let g:elm_setup_keybindings = 0
 ```
 
+## Highlighting
+
+Vim syntax highlighting is biased for the c family of languages, with entire syntax groups for the preprocessor. This can leave functional languages looking mismatched, so `elm-vim` has very opinionated highlighting. If you do not like that, you can switch to a more traditional mode.
+
+```vim
+g:elm_classic_highlighting = 1
+```
+
 ## Integration
 
 ### [Syntastic](https://github.com/scrooloose/syntastic)
@@ -112,6 +120,7 @@ let g:elm_browser_command = ""
 let g:elm_detailed_complete = 0
 let g:elm_format_autosave = 0
 let g:elm_setup_keybindings = 1
+let g:elm_classic_hightlighting = 0
 ```
 
 * `:ElmMake [filename]` calls `elm-make` with the given file. If no file is given it uses the current file being edited.
