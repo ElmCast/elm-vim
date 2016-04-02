@@ -8,7 +8,7 @@ let b:did_ftplugin = 1
 
 " Settings
 if !exists("g:elm_jump_to_error")
-	let g:elm_jump_to_error = 1
+	let g:elm_jump_to_error = 0
 endif
 
 if !exists("g:elm_make_output_file")

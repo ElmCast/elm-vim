@@ -156,7 +156,7 @@ SETTINGS                                                         *elm-settings*
 
 This setting configures whether to have vim jump the cursor to the first error found when running commands. By default it's enabled.
 >
-  let g:elm_jump_to_error = 1
+  let g:elm_jump_to_error = 0
 <
                                                      *'g:elm_make_output_file'*
 
