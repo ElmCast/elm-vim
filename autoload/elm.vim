@@ -231,7 +231,6 @@ fun! elm#Repl()
 endf
 
 function elm#Oracle(filepath, word)
-	echo s:FindRootDirectory()
 	let bin = "elm-oracle"
 	let filepath = shellescape(a:filepath)
 	let word = shellescape(a:word)
