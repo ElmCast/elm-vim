@@ -13,7 +13,7 @@ function! SyntaxCheckers_elm_elm_IsAvailable() dict
 endfunction
 
 function! SyntaxCheckers_elm_elm_make_GetLocList() dict
-	return elm#Build(expand('%', 1), syntastic#util#DevNull(), g:elm_syntastic_show_warnings)
+	return elm#Build(expand('%:p'), syntastic#util#DevNull(), g:elm_syntastic_show_warnings)
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({

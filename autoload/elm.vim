@@ -11,11 +11,11 @@ fun! s:elmOracle(...)
 
 	if a:0 == 0
 		let oldiskeyword = &iskeyword
-                " Some non obvious values used in 'iskeyword':
-                "    @     = all alpha
-                "    48-57 = numbers 0 to 9
-                "    @-@   = character @
-                "    124   = |
+		" Some non obvious values used in 'iskeyword':
+		"    @     = all alpha
+		"    48-57 = numbers 0 to 9
+		"    @-@   = character @
+		"    124   = |
 		setlocal iskeyword=@,48-57,@-@,_,-,~,!,#,$,%,&,*,+,=,<,>,/,?,.,\\,124,^
 		let word = expand('<cword>')
 		let &iskeyword = oldiskeyword
@@ -23,9 +23,9 @@ fun! s:elmOracle(...)
 		let word = a:1
 	endif
 
-	let infos = system("cd " . shellescape(project) . " && elm-oracle " . shellescape(filename) . " " . shellescape(word))
+	let infos = elm#Oracle(filename, word)
 	if v:shell_error != 0
-		elm#util#EchoError("elm-oracle failed:\n\n", infos)
+		call elm#util#EchoError("elm-oracle failed:\n\n", infos)
 		return []
 	endif
 
@@ -110,7 +110,13 @@ fun! elm#Build(input, output, show_warnings)
 	let s:errors = []
 	let fixes = []
 	let rawlines = []
-	let reports = system("elm-make --report=json " . shellescape(a:input) . " --output=" . shellescape(a:output))
+
+	let bin = "elm-make"
+	let format = "--report=json"
+	let input = shellescape(a:input)
+	let output = "--output=" . shellescape(a:output)
+	let command = bin . " " . format  . " " . input . " " . output
+	let reports = s:ExecuteInRoot(command)
 
 	for report in split(reports, '\n')
 		if report[0] == '['
@@ -163,7 +169,7 @@ fun! elm#Make(...)
 
 	call elm#util#Echo("elm-make:", "building...")
 
-	let input = (a:0 == 0) ? expand("%") : a:1
+	let input = (a:0 == 0) ? expand("%:p") : a:1
 	let fixes = elm#Build(input, g:elm_make_output_file, g:elm_make_show_warnings)
 
 	if len(fixes) > 0
@@ -206,7 +212,7 @@ fun! elm#Test(...)
 		return
 	endif
 
-	let l:file = (a:0 == 0) ? "Test" . expand("%") : a:1
+	let l:file = (a:0 == 0) ? "Test" . expand("%:p") : a:1
 	echo system("elm-test " . shellescape(l:file))
 endf
 
@@ -223,6 +229,15 @@ fun! elm#Repl()
 		!elm-repl
 	endif
 endf
+
+function elm#Oracle(filepath, word)
+	echo s:FindRootDirectory()
+	let bin = "elm-oracle"
+	let filepath = shellescape(a:filepath)
+	let word = shellescape(a:word)
+	let command = bin . " " . filepath . " " . word
+	return s:ExecuteInRoot(command)
+endfunction
 
 let s:fullComplete = ""
 
@@ -269,3 +284,39 @@ fun! elm#Complete(findstart, base)
 		return res
 	endif
 endf
+
+" Returns the closest parent with an elm-package.json file.
+function! s:FindRootDirectory()
+	let elm_root = getbufvar('%', 'elmRoot')
+	if empty(elm_root)
+		let current_file = expand('%:p')
+		let dir_current_file = fnameescape(fnamemodify(current_file, ':h'))
+		let match = findfile('elm-package.json', dir_current_file . ';')
+		if empty(match)
+			let elm_root = ''
+		else
+			let elm_root = fnamemodify(match, ':p:h')
+		endif
+
+		if !empty(elm_root)
+			call setbufvar('%', 'elmRoot', elm_root)
+		endif
+	endif
+	return elm_root
+endfunction
+
+" Executes a command in the project directory.
+function! s:ExecuteInRoot(cmd) abort
+	let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
+	let current_dir = getcwd()
+	let root_dir = s:FindRootDirectory()
+
+	try
+		execute cd . fnameescape(root_dir)
+		let out = system(a:cmd)
+	finally
+		execute cd . fnameescape(current_dir)
+	endtry
+
+	return out
+endfunction
