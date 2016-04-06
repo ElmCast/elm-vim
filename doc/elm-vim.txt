@@ -27,7 +27,8 @@ Homepage: https://github.com/elmcast/elm-vim
 
 Elm (http://elm-lang.org) support for Vim.
 
-  * Improved Syntax highlighting, including backtick operators, booleans, chars, triple quotes, string escapes, and tuple functions
+  * Improved Syntax highlighting, including backtick operators, booleans,
+    chars, triple quotes, string escapes, and tuple functions
   * Improved Indentation
   * Commands and mappings for interfacing with the elm platform
   * Auto-complete
@@ -65,8 +66,10 @@ plugins.
     Copy all of the files into your `~/.vim` directory
 <
 
-Please be sure all necessary binaries are installed (such as `elm-make`, `elm-doc`,
-`elm-reactor`, etc..) from http://elm-lang.org/. You may also want to install `elm-test` with 'npm install -g elm-test' if you want to run unit tests from within vim.
+Please be sure all necessary binaries are installed (such as `elm-make`,
+`elm-doc`, `elm-reactor`, etc..) from http://elm-lang.org/. You may also want
+to install `elm-test` with 'npm install -g elm-test' if you want to run unit
+tests from within vim.
 
 
 ===============================================================================
@@ -154,7 +157,8 @@ SETTINGS                                                         *elm-settings*
 
                                                          *'g:elm_jump_to_error'*
 
-This setting configures whether to have vim jump the cursor to the first error found when running commands. By default it's enabled.
+This setting configures whether to have vim jump the cursor to the first error
+found when running commands. By default it's enabled.
 >
   let g:elm_jump_to_error = 0
 <
