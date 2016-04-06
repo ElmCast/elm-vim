@@ -84,7 +84,7 @@ COMMANDS                                                         *elm-commands*
 :ElmTest [file]
 
     ElmTest calls `elm-test` with the given {file}. If no {file} is given
-    it attempts to run the test in 'Test{file}'.
+    it runs it in the root of your project. 
 
 :ElmRepl
 

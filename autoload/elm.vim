@@ -205,17 +205,6 @@ fun! elm#ErrorDetail()
 	endif
 endf
 
-" Test the given file, or the current file with 'Test' added if none is given.
-fun! elm#Test(...)
-	" check for elm-test
-	if elm#util#CheckBin("elm-test", "https://github.com/rtfeldman/node-elm-test") == ""
-		return
-	endif
-
-	let l:file = (a:0 == 0) ? "Test" . expand("%:p") : a:1
-	echo system("elm-test " . shellescape(l:file))
-endf
-
 " Open the elm repl in a subprocess.
 fun! elm#Repl()
 	" check for the elm-repl binary
@@ -281,6 +270,24 @@ fun! elm#Complete(findstart, base)
 		endfor
 
 		return res
+	endif
+endf
+
+" If the current buffer contains a consoleRunner, run elm-test with it.
+" Otherwise run elm-test in the root of your project which deafults to
+" running 'elm-test tests/TestRunner'.
+fun! elm#Test()
+	if elm#util#CheckBin("elm-test", "https://github.com/rtfeldman/node-elm-test") == ""
+		return
+	endif
+
+	if match(getline(1, '$'), "consoleRunner") < 0
+		let out = s:ExecuteInRoot("elm-test")
+		call elm#util#EchoSuccess("elm-test", out)
+	else
+		let filepath = shellescape(expand("%:p"))
+		let out = s:ExecuteInRoot("elm-test " . filepath)
+		call elm#util#EchoSuccess("elm-test", out)
 	endif
 endf
 

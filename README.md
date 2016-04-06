@@ -55,7 +55,7 @@ mappings. The following keybindings are provided by default:
 | ---------------------- | ------------------------------------------------------------------- |
 | \<Leader>m              | Compile the current buffer.                                        |
 | \<Leader>b              | Compile the Main.elm file in the project.                          |
-| \<Leader>t              | Runs the tests of the current buffer.                              |
+| \<Leader>t              | Runs the tests of the current buffer or 'tests/TestRunner'.                              |
 | \<Leader>r              | Opens an elm repl in a subprocess.                                 |
 | \<Leader>e              | Shows the detail of the current error or warning.                  |
 | \<Leader>d              | Shows the type and docs for the word under the cursor.             |
@@ -127,7 +127,7 @@ let g:elm_classic_hightlighting = 0
 
 * `:ElmMakeMain` attempts to call `elm-make` with "Main.elm".
 
-* `:ElmTest` calls `elm-test` with the given file. If no file is given it attempts to run the tests in 'Test[filename].elm'.
+* `:ElmTest` calls `elm-test` with the given file. If no file is given it runs it in the root of your project. 
 
 * `:ElmRepl` runs `elm-repl`, which will return to vim on exiting.
 
