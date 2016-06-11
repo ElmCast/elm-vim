@@ -72,19 +72,24 @@ fun! elm#util#DecodeJSON(s)
 	return eval(a:s)
 endf
 
+" Remove ANSI escape characters used for highlighting purposes
+fun! s:strip_color(msg)
+	return substitute(a:msg, '\e\[[0-9;]\+[mK]', '', 'g')
+endf
+
 " Print functions
 fun! elm#util#Echo(title, msg)
-	redraws! | echon a:title . " " | echohl Identifier | echon a:msg | echohl None
+	redraws! | echon a:title . " " | echohl Identifier | echon s:strip_color(a:msg) | echohl None
 endf
 
 fun! elm#util#EchoSuccess(title, msg)
-	redraws! | echon a:title . " " | echohl Function | echon a:msg | echohl None
+	redraws! | echon a:title . " " | echohl Function | echon s:strip_color(a:msg) | echohl None
 endf
 
 fun! elm#util#EchoWarning(title, msg)
-	redraws! | echon a:title . " " | echohl WarningMsg | echon a:msg | echohl None
+	redraws! | echon a:title . " " | echohl WarningMsg | echon s:strip_color(a:msg) | echohl None
 endf
 
 fun! elm#util#EchoError(title, msg)
-	redraws! | echon a:title . " " | echohl ErrorMsg | echon a:msg | echohl None
+	redraws! | echon a:title . " " | echohl ErrorMsg | echon s:strip_color(a:msg) | echohl None
 endf
