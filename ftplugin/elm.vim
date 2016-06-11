@@ -50,28 +50,20 @@ command -buffer ElmShowDocs call elm#ShowDocs()
 command -buffer ElmBrowseDocs call elm#BrowseDocs()
 command -buffer ElmFormat call elm#Format()
 
-" Mappings
-nnoremap <silent> <Plug>(elm-make) :<C-u>call elm#Make()<CR>
-nnoremap <silent> <Plug>(elm-make-main) :<C-u>call elm#Make("Main.elm")<CR>
-nnoremap <silent> <Plug>(elm-test) :<C-u>call elm#Test()<CR>
-nnoremap <silent> <Plug>(elm-repl) :<C-u>call elm#Repl()<CR>
-nnoremap <silent> <Plug>(elm-error-detail) :<C-u>call elm#ErrorDetail()<CR>
-nnoremap <silent> <Plug>(elm-show-docs) :<C-u>call elm#ShowDocs()<CR>
-nnoremap <silent> <Plug>(elm-browse-docs) :<C-u>call elm#BrowseDocs()<CR>
-
 if get(g:, "elm_setup_keybindings", 1)
-	au FileType elm nmap <leader>m <Plug>(elm-make)
-	au FileType elm nmap <leader>b <Plug>(elm-make-main)
-	au FileType elm nmap <leader>t <Plug>(elm-test)
-	au FileType elm nmap <leader>r <Plug>(elm-repl)
-	au FileType elm nmap <leader>e <Plug>(elm-error-detail)
-	au FileType elm nmap <leader>d <Plug>(elm-show-docs)
-	au FileType elm nmap <leader>w <Plug>(elm-browse-docs)
+  nmap <buffer> <LocalLeader>m <Plug>(elm-make)
+  nmap <buffer> <LocalLeader>b <Plug>(elm-make-main)
+  nmap <buffer> <LocalLeader>t <Plug>(elm-test)
+  nmap <buffer> <LocalLeader>r <Plug>(elm-repl)
+  nmap <buffer> <LocalLeader>e <Plug>(elm-error-detail)
+  nmap <buffer> <LocalLeader>d <Plug>(elm-show-docs)
+  nmap <buffer> <LocalLeader>w <Plug>(elm-browse-docs)
 endif
 
 " Elm code formatting on save
 if get(g:, "elm_format_autosave", 1)
 	autocmd BufWritePre *.elm call elm#Format()
+	autocmd BufWritePost *.elm call elm#util#EchoStored()
 endif
 
 " Enable go to file under cursor from module name

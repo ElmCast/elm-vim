@@ -65,7 +65,7 @@ fun! elm#Format()
 		let &fileformat = old_fileformat
 		let &syntax = &syntax
 	else
-		call elm#util#EchoError("elm-format:", out)
+		call elm#util#EchoLater("EchoError", "elm-format:", out)
 	endif
 
 	" restore our cursor/windows positions, folds, etc..
