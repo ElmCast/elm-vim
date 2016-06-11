@@ -88,3 +88,19 @@ endf
 fun! elm#util#EchoError(title, msg)
 	redraws! | echon a:title . " " | echohl ErrorMsg | echon a:msg | echohl None
 endf
+
+fun! elm#util#EchoLater(func_name, title, msg)
+  let s:echo_func_name = a:func_name
+  let s:echo_title = a:title
+  let s:echo_msg = a:msg
+endf
+
+fun! elm#util#EchoStored()
+  if exists('s:echo_func_name') && exists('s:echo_title') && exists('s:echo_msg')
+    call function('elm#util#' . s:echo_func_name)(s:echo_title, s:echo_msg)
+    unlet s:echo_func_name
+    unlet s:echo_title
+    unlet s:echo_msg
+  endif
+endf
+
