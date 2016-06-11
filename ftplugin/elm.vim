@@ -72,6 +72,7 @@ endif
 " Elm code formatting on save
 if get(g:, "elm_format_autosave", 1)
 	autocmd BufWritePre *.elm call elm#Format()
+	autocmd BufWritePost *.elm call elm#util#EchoStored()
 endif
 
 " Enable go to file under cursor from module name
