@@ -92,4 +92,5 @@ let &l:path =
       \   &g:path
       \ ], ',')
 setlocal includeexpr=GetElmFilename(v:fname)
+setlocal include=^\\s*import\\s\\+
 setlocal suffixesadd=.elm
