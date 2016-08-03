@@ -64,7 +64,7 @@ fun! elm#Format()
 		silent edit!
 		let &fileformat = old_fileformat
 		let &syntax = &syntax
-	else
+	elseif g:elm_syntastic_show_warnings == 0
 		call elm#util#EchoError("elm-format:", out)
 	endif
 
@@ -105,6 +105,46 @@ fun! elm#BrowseDocs()
 		call elm#util#Echo("elm-oracle:", "...no match found")
 	endif
 endf
+
+
+fun! elm#InferType()
+	let bin = "elm-make"
+	let format = "--report=json"
+	let input = shellescape(expand("%"))
+	let output = "--output=/dev/null"
+	let command = bin . " " . format  . " " . input . " " . output
+	let reports = s:ExecuteInRoot(command)
+
+	for report in split(reports, '\n')
+		if report[0] == '['
+			for error in elm#util#DecodeJSON(report)
+				if error.tag == "missing type annotation"
+					if error.file == expand("%")
+						if error.region.start.line == line(".")
+							let chunks = split(error.details, "\n")
+							let signature = chunks[len(chunks) - 1]
+							return signature
+						end
+					end
+				end
+			endfor
+		endif
+	endfor
+endfun
+
+fun! elm#InsertInferredType()
+	let signature = elm#InferType()
+	if signature != "0"
+		call append(line('.') - 1, signature)
+	end
+endfun
+
+fun! elm#ShowInferredType()
+	let signature = elm#InferType()
+	if signature != "0"
+		call elm#util#Echo("Inferred Type:", signature)
+	end
+endfun
 
 fun! elm#Build(input, output, show_warnings)
 	let s:errors = []
