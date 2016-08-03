@@ -139,6 +139,13 @@ fun! elm#InsertInferredType()
 	end
 endfun
 
+fun! elm#ShowInferredType()
+	let signature = elm#InferType()
+	if signature != "0"
+		call elm#util#Echo("Inferred Type:", signature)
+	end
+endfun
+
 fun! elm#Build(input, output, show_warnings)
 	let s:errors = []
 	let fixes = []
