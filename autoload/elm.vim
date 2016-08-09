@@ -121,9 +121,14 @@ fun! elm#InferType()
 				if error.tag == "missing type annotation"
 					if error.file == expand("%")
 						if error.region.start.line == line(".")
-							let chunks = split(error.details, "\n")
-							let signature = chunks[len(chunks) - 1]
-							return signature
+							let l:msg = error.details
+							let l:fn_name = split(getline("."))[0]
+							let l:pattern =  "\n" . l:fn_name
+							let l:starting_index = match(l:msg, l:pattern) + 1
+							let l:signature = strpart(l:msg, l:starting_index)
+							let l:singleline_sig = substitute(l:signature, "\n", "", "g")
+							let l:singlespaced_sig = substitute(l:singleline_sig, ' \+', " ", "g")
+							return l:singlespaced_sig
 						end
 					end
 				end
