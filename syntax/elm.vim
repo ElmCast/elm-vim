@@ -32,8 +32,8 @@ syn region elmComment matchgroup=elmComment start="{-|\=" end="-}" contains=elmT
 " Strings
 syn match elmStringEscape "\\u[0-9a-fA-F]\{4}" contained
 syn match elmStringEscape "\\[nrfvbt\\\"]" contained
-syn region elmString start="\"" skip="\\\"" end="\"" contains=elmStringEscape
-syn region elmTripleString start="\"\"\"" skip="\\\"" end="\"\"\"" contains=elmStringEscape
+syn region elmString start="\"" skip="\\\"" end="\"" contains=elmStringEscape,@spell
+syn region elmTripleString start="\"\"\"" skip="\\\"" end="\"\"\"" contains=elmStringEscape,@spell
 syn match elmChar "'[^'\\]'\|'\\.'\|'\\u[0-9a-fA-F]\{4}'"
 
 " Numbers
