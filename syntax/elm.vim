@@ -54,7 +54,7 @@ hi def link elmChar String
 hi def link elmStringEscape Special
 hi def link elmInt Number
 hi def link elmFloat Float
-hi def link elmDelimiter Comment
+hi def link elmDelimiter Delimiter
 
 if get(g:, "elm_classic_highlighting", 1)
 	hi def link elmTypedef Keyword
@@ -70,7 +70,7 @@ else
 	hi def link elmImport Include
 	hi def link elmConditional Conditional
 	hi def link elmAlias StorageClass
-	hi def link elmOperator Comment
+	hi def link elmOperator Character
 	hi def link elmType Identifier
 	hi def link elmNumberType Identifier
 	hi def link elmBraces Delimiter
