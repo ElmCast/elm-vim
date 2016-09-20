@@ -37,7 +37,7 @@ syn region elmTripleString start="\"\"\"" skip="\\\"" end="\"\"\"" contains=elmS
 syn match elmChar "'[^'\\]'\|'\\.'\|'\\u[0-9a-fA-F]\{4}'"
 
 " Numbers
-syn match elmInt "\(\<\d\+\>\)"
+syn match elmInt "-\?\<\d\+\>\|0[xX][0-9a-fA-F]\+\>"
 syn match elmFloat "\(\<\d\+\.\d\+\>\)"
 
 " Identifiers
