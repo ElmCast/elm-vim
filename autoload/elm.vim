@@ -213,7 +213,7 @@ fun! elm#Repl()
 	endif
 
 	if has('nvim')
-		call termopen("elm-repl")
+		term("elm-repl")
 	else
 		!elm-repl
 	endif
