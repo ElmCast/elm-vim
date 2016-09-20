@@ -73,6 +73,9 @@ endif
 if get(g:, "elm_format_autosave", 1)
 	autocmd BufWritePre *.elm call elm#Format()
 endif
+if has('win32')
+	set viewdir=$HOME/vimfiles/views/
+endif
 
 " Enable go to file under cursor from module name
 " Based on: https://github.com/elixir-lang/vim-elixir/blob/bd66ed134319d1e390f3331e8c4d525109f762e8/ftplugin/elixir.vim#L22-L56
