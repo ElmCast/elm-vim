@@ -209,6 +209,14 @@ This setting toggles whether the current buffer should be formatted on save.
   let g:elm_format_autosave = 0
 <
 
+                                                 *'g:elm_format_fail_silently'*
+
+This setting toggles whether format errors show be display.
+>
+  let g:elm_format_fail_silently = 0
+<
+
+
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*
 

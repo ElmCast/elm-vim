@@ -27,6 +27,10 @@ if !exists("g:elm_format_autosave")
 	let g:elm_format_autosave = 0
 endif
 
+if !exists("g:elm_format_fail_silently")
+    let g:elm_format_fail_silently = 0
+endif
+
 if !exists("g:elm_setup_keybindings")
 	let g:elm_setup_keybindings = 1
 endif

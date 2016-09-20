@@ -64,7 +64,7 @@ fun! elm#Format()
 		silent edit!
 		let &fileformat = old_fileformat
 		let &syntax = &syntax
-	else
+	elseif g:elm_format_fail_silently == 0
 		call elm#util#EchoLater("EchoError", "elm-format:", out)
 	endif
 
