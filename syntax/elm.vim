@@ -54,26 +54,14 @@ hi def link elmChar String
 hi def link elmStringEscape Special
 hi def link elmInt Number
 hi def link elmFloat Float
-hi def link elmDelimiter Comment
-
-if get(g:, "elm_classic_highlighting", 1)
-	hi def link elmTypedef Keyword
-	hi def link elmImport Keyword
-	hi def link elmConditional Keyword
-	hi def link elmAlias Keyword
-	hi def link elmOperator Operator
-	hi def link elmType Type
-	hi def link elmNumberType Type
-	hi def link elmDelimiter Delimiter
-else
-	hi def link elmTypedef TypeDef
-	hi def link elmImport Include
-	hi def link elmConditional Conditional
-	hi def link elmAlias StorageClass
-	hi def link elmOperator Comment
-	hi def link elmType Identifier
-	hi def link elmNumberType Identifier
-	hi def link elmBraces Delimiter
-endif
+hi def link elmDelimiter Delimiter
+hi def link elmBraces Delimiter
+hi def link elmTypedef TypeDef
+hi def link elmImport Include
+hi def link elmConditional Conditional
+hi def link elmAlias Delimiter
+hi def link elmOperator Operator
+hi def link elmType Identifier
+hi def link elmNumberType Identifier
 
 let b:current_syntax = "elm"
