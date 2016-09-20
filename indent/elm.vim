@@ -102,6 +102,9 @@ function! GetElmIndent()
 	elseif line =~ '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)' && lline !~ '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)' && lline !~ '^\s*$'
 		let ind = ind + &sw
 
+	elseif lline ==# '' && getline(lnum - 1) !=# ''
+		let ind = indent(search('^\s*\S+', 'bWn'))
+
 	endif
 
 	return ind
