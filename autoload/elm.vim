@@ -62,6 +62,9 @@ fun! elm#Format()
 		let old_fileformat = &fileformat
 		call rename(l:tmpname, expand('%'))
 		silent edit!
+    if g:elm_format_two_spaces == 1
+      %s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g
+    endif
 		let &fileformat = old_fileformat
 		let &syntax = &syntax
 	elseif g:elm_format_fail_silently == 0
