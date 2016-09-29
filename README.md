@@ -69,6 +69,14 @@ let g:elm_setup_keybindings = 0
 
 ## Integration
 
+### Automatically Format Upon Save
+
+To automatically format your code before a save, add the following to your `.vimrc`
+
+```vim
+au BufWritePre *.elm call elm#Format()                                                                                            
+```
+
 ### [Syntastic](https://github.com/scrooloose/syntastic)
 
 Syntastic support should work out of the box, but we recommend the following settings:
