@@ -45,7 +45,16 @@ fun! elm#Format()
 	endif
 
 	" save cursor position, folds and many other things
-	mkview!
+    let l:curw = {}
+    try
+      mkview!
+    catch
+      let l:curw = winsaveview()
+    endtry
+
+    " save our undo file to be restored after we are done.
+    let tmpundofile = tempname()
+    exe 'wundo! ' . tmpundofile
 
 	" write current unsaved buffer to a temporary file
 	let l:tmpname = tempname() . ".elm"
@@ -68,8 +77,16 @@ fun! elm#Format()
 		call elm#util#EchoLater("EchoError", "elm-format:", out)
 	endif
 
+    " save our undo history
+    silent! exe 'rundo ' . tmpundofile
+    call delete(tmpundofile)
+
 	" restore our cursor/windows positions, folds, etc..
-	silent! loadview
+    if empty(l:curw)
+      silent! loadview
+    else
+      call winrestview(l:curw)
+    endif
 endf
 
 " Query elm-oracle and echo the type and docs for the word under the cursor.
