@@ -49,6 +49,8 @@ command -buffer ElmErrorDetail call elm#ErrorDetail()
 command -buffer ElmShowDocs call elm#ShowDocs()
 command -buffer ElmBrowseDocs call elm#BrowseDocs()
 command -buffer ElmFormat call elm#Format()
+command -buffer ElmInsertInferredType call elm#InsertInferredType()
+command -buffer ElmShowInferredType call elm#ShowInferredType()
 
 " Mappings
 nnoremap <silent> <Plug>(elm-make) :<C-u>call elm#Make()<CR>

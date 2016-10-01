@@ -106,6 +106,51 @@ fun! elm#BrowseDocs()
 	endif
 endf
 
+
+fun! elm#InferType()
+	let bin = "elm-make"
+	let format = "--report=json"
+	let input = shellescape(expand("%"))
+	let output = "--output=/dev/null"
+	let command = bin . " " . format  . " " . input . " " . output
+	let reports = s:ExecuteInRoot(command)
+
+	for report in split(reports, '\n')
+		if report[0] == '['
+			for error in elm#util#DecodeJSON(report)
+				if error.tag == "missing type annotation"
+					if error.file == expand("%")
+						if error.region.start.line == line(".")
+							let l:msg = error.details
+							let l:fn_name = split(getline("."))[0]
+							let l:pattern =  "\n" . l:fn_name
+							let l:starting_index = match(l:msg, l:pattern) + 1
+							let l:signature = strpart(l:msg, l:starting_index)
+							let l:singleline_sig = substitute(l:signature, "\n", "", "g")
+							let l:singlespaced_sig = substitute(l:singleline_sig, ' \+', " ", "g")
+							return l:singlespaced_sig
+						end
+					end
+				end
+			endfor
+		endif
+	endfor
+endfun
+
+fun! elm#InsertInferredType()
+	let signature = elm#InferType()
+	if signature != "0"
+		call append(line('.') - 1, signature)
+	end
+endfun
+
+fun! elm#ShowInferredType()
+	let signature = elm#InferType()
+	if signature != "0"
+		call elm#util#Echo("Inferred Type:", signature)
+	end
+endfun
+
 fun! elm#Build(input, output, show_warnings)
 	let s:errors = []
 	let fixes = []
