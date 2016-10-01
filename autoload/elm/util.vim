@@ -102,7 +102,7 @@ endf
 
 fun! elm#util#EchoStored()
   if exists('s:echo_func_name') && exists('s:echo_title') && exists('s:echo_msg')
-    call function('elm#util#' . s:echo_func_name)(s:echo_title, s:echo_msg)
+    call elm#util#{s:echo_func_name}(s:echo_title, s:echo_msg)
     unlet s:echo_func_name
     unlet s:echo_title
     unlet s:echo_msg

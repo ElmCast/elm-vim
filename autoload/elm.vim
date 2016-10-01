@@ -129,7 +129,6 @@ fun! elm#Build(input, output, show_warnings)
 					call add(s:errors, error)
 					call add(fixes, {"filename": error.file,
 								\"valid": 1,
-								\"bufnr": bufnr('%'),
 								\"type": (error.type == "error") ? 'E' : 'W',
 								\"lnum": error.region.start.line,
 								\"col": error.region.start.column,
@@ -154,7 +153,6 @@ fun! elm#Build(input, output, show_warnings)
 		call add(s:errors, {"overview": details, "details": details})
 		call add(fixes, {"filename": expand('%', 1),
 					\"valid": 1,
-					\"bufnr": bufnr('%'),
 					\"type": 'E',
 					\"lnum": 0,
 					\"col": 0,
@@ -178,8 +176,8 @@ fun! elm#Make(...)
 	if len(fixes) > 0
 		call elm#util#EchoWarning("", "found " . len(fixes) . " errors")
 
-		call setloclist(0, fixes, 'r')
-		lwindow
+		call setqflist(fixes, 'r')
+		cwindow
 
 		if get(g:, "elm_jump_to_error", 1)
 			ll 1
@@ -187,15 +185,15 @@ fun! elm#Make(...)
 	else
 		call elm#util#EchoSuccess("", "Sucessfully compiled")
 
-		call setloclist(0, [])
-		lwindow
+		call setqflist([])
+		cwindow
 	endif
 endf
 
 " Show the detail of the current error in the quickfix window.
 fun! elm#ErrorDetail()
 	if !empty(filter(tabpagebuflist(), 'getbufvar(v:val, "&buftype") ==# "quickfix"'))
-		exec ":lopen"
+		exec ":copen"
 		let linenr = line(".")
 		exec ":wincmd p"
 		if len(s:errors) > 0
