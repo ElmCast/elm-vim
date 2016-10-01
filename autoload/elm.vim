@@ -109,6 +109,39 @@ fun! elm#BrowseDocs()
 	endif
 endf
 
+
+fun! elm#Syntastic(input)
+	let fixes = []
+
+	let bin = "elm-make"
+	let format = "--report=json"
+	let input = shellescape(a:input)
+	let output = "--output=" . shellescape(syntastic#util#DevNull())
+	let command = bin . " " . format  . " " . input . " " . output
+	let reports = s:ExecuteInRoot(command)
+
+	for report in split(reports, '\n')
+		if report[0] == '['
+            for error in elm#util#DecodeJSON(report)
+                if g:elm_syntastic_show_warnings == 0 && error.type == "warning"
+                else
+                    if a:input == error.file
+                        call add(fixes, {"filename": error.file,
+                                    \"valid": 1,
+                                    \"bufnr": bufnr('%'),
+                                    \"type": (error.type == "error") ? 'E' : 'W',
+                                    \"lnum": error.region.start.line,
+                                    \"col": error.region.start.column,
+                                    \"text": error.overview})
+                    endif
+                endif
+            endfor
+        endif
+	endfor
+
+	return fixes
+endf
+
 fun! elm#Build(input, output, show_warnings)
 	let s:errors = []
 	let fixes = []
