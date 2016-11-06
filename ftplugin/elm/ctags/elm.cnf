@@ -1,0 +1,11 @@
+--langdef=Elm
+--langmap=Elm:.elm
+--regex-Elm=/^ *([a-z][a-zA-Z0-9_-]+)[ \t ]*:[^:].*->(.*)/\1/f,function,functions type declarations,S:String s/
+--regex-Elm=/^ *([a-z][a-zA-Z0-9_-]+)[ \t ]*:([^:][^-]+)$/\1/c,constant,constants/
+--regex-Elm=/^port *([a-z][a-zA-Z0-9_-]+)[ \t ]*:[^:]/\1/p,port,ports/
+--regex-Elm=/^type *([A-Z][a-zA-Z0-9_-]*)/\1/t,type/
+--regex-Elm=/^type alias *([A-Z][a-zA-Z0-9_-]*)/\1/t,type,Declared types/
+--regex-Elm=/[ \r\n\t][\|=][ \r\n\t]*([A-Z][a-zA-Z0-9_-]*)(.*)/\1/C,constructor,constructors created by types/
+--regex-Elm=/^module *([A-Z][.a-zA-Z0-9_-]*)/\1/m,module,module definitions/
+--regex-Elm=/^import *([A-Z][.a-zA-Z0-9_-]*)(.*as *([A-Z][.a-zA-Z0-9_-]*))?.*(\(.*\))*/\1 (\2)/i,import,imported modules/
+
