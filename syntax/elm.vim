@@ -1,6 +1,6 @@
 " syntax highlighting for Elm (http://elm-lang.org/)
 
-if exists("b:current_syntax")
+if exists('b:current_syntax')
   finish
 endif
 
@@ -64,4 +64,4 @@ hi def link elmOperator Operator
 hi def link elmType Identifier
 hi def link elmNumberType Identifier
 
-let b:current_syntax = "elm"
+let b:current_syntax = 'elm'
