@@ -9,7 +9,7 @@ function! s:SetTagbar()
         let g:tagbar_type_elm = {
                     \ 'ctagstype' : 'elm',
                     \ 'kinds'     : [
-                    \ 'c:contants',
+                    \ 'c:constants',
                     \ 'f:functions',
                     \ 'p:ports'
                     \ ]
