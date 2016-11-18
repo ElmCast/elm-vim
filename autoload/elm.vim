@@ -278,7 +278,8 @@ endfunction
 let s:fullComplete = ''
 
 " Complete the current token using elm-oracle
-function! elm#Complete(findstart) abort
+function! elm#Complete(findstart, base) abort
+" a:base is unused, but the callback function for completion expects 2 arguments
 	if a:findstart
 		let l:line = getline('.')
 
