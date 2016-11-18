@@ -7,31 +7,31 @@ endif
 let b:did_ftplugin = 1
 
 " Settings
-if !exists("g:elm_jump_to_error")
+if !exists('g:elm_jump_to_error')
 	let g:elm_jump_to_error = 0
 endif
 
-if !exists("g:elm_make_output_file")
-	let g:elm_make_output_file = "elm.js"
+if !exists('g:elm_make_output_file')
+	let g:elm_make_output_file = 'elm.js'
 endif
 
-if !exists("g:elm_make_show_warnings")
+if !exists('g:elm_make_show_warnings')
 	let g:elm_make_show_warnings = 0
 endif
 
-if !exists("g:elm_syntastic_show_warnings")
+if !exists('g:elm_syntastic_show_warnings')
 	let g:elm_syntastic_show_warnings = 0
 endif
 
-if !exists("g:elm_format_autosave")
+if !exists('g:elm_format_autosave')
 	let g:elm_format_autosave = 0
 endif
 
-if !exists("g:elm_format_fail_silently")
+if !exists('g:elm_format_fail_silently')
     let g:elm_format_fail_silently = 0
 endif
 
-if !exists("g:elm_setup_keybindings")
+if !exists('g:elm_setup_keybindings')
 	let g:elm_setup_keybindings = 1
 endif
 
@@ -50,7 +50,7 @@ command -buffer ElmShowDocs call elm#ShowDocs()
 command -buffer ElmBrowseDocs call elm#BrowseDocs()
 command -buffer ElmFormat call elm#Format()
 
-if get(g:, "elm_setup_keybindings", 1)
+if get(g:, 'elm_setup_keybindings', 1)
   nmap <buffer> <LocalLeader>m <Plug>(elm-make)
   nmap <buffer> <LocalLeader>b <Plug>(elm-make-main)
   nmap <buffer> <LocalLeader>t <Plug>(elm-test)
@@ -61,9 +61,11 @@ if get(g:, "elm_setup_keybindings", 1)
 endif
 
 " Elm code formatting on save
-if get(g:, "elm_format_autosave", 1)
+if get(g:, 'elm_format_autosave', 1)
+  augroup elmFormat
 	autocmd BufWritePre *.elm call elm#Format()
 	autocmd BufWritePost *.elm call elm#util#EchoStored()
+   augroup END
 endif
 if has('win32')
 	set viewdir=$HOME/vimfiles/views/
@@ -72,12 +74,12 @@ endif
 " Enable go to file under cursor from module name
 " Based on: https://github.com/elixir-lang/vim-elixir/blob/bd66ed134319d1e390f3331e8c4d525109f762e8/ftplugin/elixir.vim#L22-L56
 function! GetElmFilename(word)
-  let word = a:word
+  let l:word = a:word
 
   " replace module dots with slash
-  let word = substitute(word,'\.','/','g')
+  let l:word = substitute(l:word,'\.','/','g')
 
-  return word
+  return l:word
 endfunction
 
 let &l:path =

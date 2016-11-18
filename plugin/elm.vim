@@ -1,4 +1,4 @@
-if exists("g:loaded_elm")
+if exists('g:loaded_elm')
   finish
 endif
 

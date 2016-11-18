@@ -1,11 +1,11 @@
 if !executable('ctags')
     finish
-elseif globpath(&rtp, 'plugin/tagbar.vim') == ""
+elseif globpath(&runtimepath, 'plugin/tagbar.vim') ==? ''
     finish
 endif
 
 function! s:SetTagbar()
-    if !exists("g:tagbar_type_elm")
+    if !exists('g:tagbar_type_elm')
         let g:tagbar_type_elm = {
                     \ 'ctagstype' : 'elm',
                     \ 'kinds'     : [
