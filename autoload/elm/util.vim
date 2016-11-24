@@ -66,6 +66,9 @@ endf
 
 " DecodeJSON decodes a string of json into a viml object
 fun! elm#util#DecodeJSON(s) abort
+  let l:true = 1
+  let l:false = 0
+  let l:null = 0
   return eval(a:s)
 endf
 
