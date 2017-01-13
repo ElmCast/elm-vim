@@ -8,9 +8,9 @@
 1. Automatic indentation
 1. Function completion
 1. Build and package commands
-1. Code formating and linting
+1. Code formatting and linting
 1. Documentation lookup
-1. Repl integration
+1. REPL integration
 
 Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
@@ -125,7 +125,7 @@ let g:elm_setup_keybindings = 1
 
 * `:ElmErrorDetail` shows the detail of the current error in the quickfix window.
 
-* `:ElmShowDocs` queries elm-oracle, then echos the type and docs for the word under the cursor.
+* `:ElmShowDocs` queries elm-oracle, then echoes the type and docs for the word under the cursor.
 
 * `:ElmBrowseDocs` queries elm-oracle, then opens docs web page for the word under the cursor.
 *
