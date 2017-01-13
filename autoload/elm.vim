@@ -140,6 +140,7 @@ function! elm#Syntastic(input) abort
                 if g:elm_syntastic_show_warnings == 0 && l:error.type ==? 'warning'
                 else
                     if a:input == l:error.file
+                        call add(s:errors, l:error)
                         call add(l:fixes, {'filename': l:error.file,
                                     \'valid': 1,
                                     \'bufnr': bufnr('%'),
