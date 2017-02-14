@@ -342,7 +342,7 @@ function! elm#Test() abort
 endf
 
 " Returns the closest parent with an elm-package.json file.
-function! s:FindRootDirectory() abort
+function! elm#FindRootDirectory() abort
 	let l:elm_root = getbufvar('%', 'elmRoot')
 	if empty(l:elm_root)
 		let l:current_file = expand('%:p')
@@ -365,7 +365,7 @@ endfunction
 function! s:ExecuteInRoot(cmd) abort
 	let l:cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
 	let l:current_dir = getcwd()
-	let l:root_dir = s:FindRootDirectory()
+	let l:root_dir = elm#FindRootDirectory()
 
 	try
 		execute l:cd . fnameescape(l:root_dir)

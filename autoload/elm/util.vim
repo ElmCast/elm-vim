@@ -109,3 +109,66 @@ fun! elm#util#EchoStored() abort
   endif
 endf
 
+function! elm#util#GoToModule(name)
+  if empty(a:name) | return | endif
+  if empty(matchstr(a:name, '^Native\.'))
+    let l:extension = '.elm'
+  else
+    let l:extension = '.js'
+  endif
+  let l:rel_path = substitute(a:name, '\.', '/', 'g') . l:extension
+  let l:root = elm#FindRootDirectory()
+
+  let l:module_file = s:findLocalModule(l:rel_path, l:root)
+  if !filereadable(l:module_file)
+    let l:module_file = s:findDependencyModule(l:rel_path, l:root)
+  endif
+
+  if filereadable(l:module_file)
+    exec 'edit ' . fnameescape(l:module_file)
+  else
+    return s:error("Can't find module \"" . a:name . "\"")
+  endif
+endfunction
+
+function! s:findLocalModule(rel_path, root)
+  let l:package_json = a:root . '/elm-package.json'
+  if exists('*json_decode')
+    let l:package = json_decode(readfile(l:package_json))
+    let l:source_roots = l:package['source-directories']
+  else
+    " This is a fallback for vim's which do not support json_decode.
+    " It simply only looks in the 'src' subdirectory and fails otherwise.
+    let l:source_roots = ['src']
+  end
+  for l:source_root in l:source_roots
+    let l:file_path = a:root . '/' . l:source_root . '/' . a:rel_path
+    if !filereadable(l:file_path)
+      continue
+    endif
+    return l:file_path
+  endfor
+endfunction
+
+function! s:findDependencyModule(rel_path, root)
+  " If we are a dependency ourselves, we need to check our siblings.
+  " This is because elm package doesn't install dependencies recursively.
+  let l:root = substitute(a:root, '\/elm-stuff/packages.\+$', '', '')
+
+  " We naively craws the dependencies dir for any fitting module name.
+  " If it exists, we'll find it. If multiple filenames match,
+  " there's a chance we return the wrong one.
+  let l:module_paths = glob(l:root . '/elm-stuff/packages/**/' . a:rel_path, 0, 1)
+  if len(l:module_paths) > 0
+    return l:module_paths[0]
+  endif
+endfunction
+
+" Using the built-in :echoerr prints a stacktrace, which isn't that nice.
+" From: https://github.com/moll/vim-node/blob/master/autoload/node.vim
+function! s:error(msg)
+	echohl ErrorMsg
+	echomsg a:msg
+	echohl NONE
+	let v:errmsg = a:msg
+endfunction
