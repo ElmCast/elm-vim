@@ -80,7 +80,7 @@ function! GetElmIndent()
 		return l:ind + 4
 
 	" Align bindings with the parent in.
-	elseif l:lline =~# '^\s*in'
+	elseif l:lline =~# '^\s*in\>'
 		return l:ind + 4
 
 	endif
