@@ -80,7 +80,7 @@ function! GetElmIndent()
 		return l:ind + 4
 
 	" Align bindings with the parent in.
-	elseif l:lline =~# '^\s*in'
+	elseif l:lline =~# '^\s*in\>'
 		return l:ind + 4
 
 	endif
@@ -99,7 +99,7 @@ function! GetElmIndent()
 		let l:ind = indent(searchpair('{-', '', '-}', 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string"'))
 
 	" Ident some operators if there aren't any starting the last line.
-	elseif l:line =~# '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)' && l:lline !~# '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)' && l:lline !~# '^\s*$'
+	elseif l:line =~# '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)=' && l:lline !~# '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)=' && l:lline !~# '^\s*$'
 		let l:ind = l:ind + &shiftwidth
 
 	elseif l:lline ==# '' && getline(l:lnum - 1) !=# ''
