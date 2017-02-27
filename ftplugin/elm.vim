@@ -60,6 +60,9 @@ if get(g:, 'elm_setup_keybindings', 1)
   nmap <buffer> <LocalLeader>w <Plug>(elm-browse-docs)
 endif
 
+" Better gf command
+nmap gf :call elm#util#GoToModule(expand('<cfile>'))<CR>
+
 " Elm code formatting on save
 if get(g:, 'elm_format_autosave', 1)
   augroup elmFormat
@@ -85,8 +88,8 @@ endfunction
 
 let &l:path =
       \ join([
-      \   getcwd().'/src',
-      \   getcwd().'/elm-stuff/packages/**/src',
+      \   elm#FindRootDirectory().'/src',
+      \   elm#FindRootDirectory().'/elm-stuff/packages/**/src',
       \   &g:path
       \ ], ',')
 setlocal includeexpr=GetElmFilename(v:fname)
