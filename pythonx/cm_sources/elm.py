@@ -64,7 +64,8 @@ class Source(Base):
 
         for item in result:
             word = item['name']
-            m = { 'word': word, 'info': item['comment'] }
+            menu = item.get('fullName', '')
+            m = { 'word': word, 'menu': menu, 'info': item['comment'] }
 
             matches.append(m)
 
