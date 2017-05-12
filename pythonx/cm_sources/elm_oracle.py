@@ -10,7 +10,7 @@
 # modules required by this module
 from cm import register_source, getLogger, Base
 
-register_source(name='elm',
+register_source(name='elm-oracle',
                 priority=9,
                 abbreviation='elm',
                 scopes=['elm'],
@@ -64,7 +64,7 @@ class Source(Base):
 
         for item in result:
             word = item['name']
-            menu = item.get('fullName', '')
+            menu = item.get('signature', item.get('fullName',''))
             m = { 'word': word, 'menu': menu, 'info': item['comment'] }
 
             matches.append(m)
