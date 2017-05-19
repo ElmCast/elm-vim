@@ -41,8 +41,6 @@ class Source(Base):
 
         logger.debug("args: %s", args)
 
-        # convert lnum, col to offset
-        # invoke gocode
         proj_dir = self._project_root(filepath)
 
         logger.debug("dir: %s", proj_dir)
