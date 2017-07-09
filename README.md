@@ -18,7 +18,7 @@ Check out this [ElmCast video](https://vimeo.com/132107269) for more detail.
 
 If you don't have a preferred installation method, I recommend installing [vim-plug](https://github.com/junegunn/vim-plug), and then simply add `Plug 'elmcast/elm-vim'` to your plugin section:
 
-Once help tags have been generated, you can view the manual with :help elm-vim.
+*NOTE:* If you are using [vim-polyglot](https://github.com/sheerun/vim-polyglot), you need to disable its default elm plugin by adding `let g:polyglot_disabled = ['elm']` to your config file.
 
 ### Requirements
 
