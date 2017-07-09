@@ -24,7 +24,7 @@ if !exists('g:elm_syntastic_show_warnings')
 endif
 
 if !exists('g:elm_format_autosave')
-	let g:elm_format_autosave = 0
+	let g:elm_format_autosave = 1
 endif
 
 if !exists('g:elm_format_fail_silently')

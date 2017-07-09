@@ -40,10 +40,10 @@ For code completion and doc lookups, install [elm-oracle](https://github.com/elm
 npm install -g elm-oracle
 ```
 
-To automatically format your code, install `elm-format` from its [github page](https://github.com/avh4/elm-format).
+To automatically format your code, install [elm-format](https://github.com/avh4/elm-format).
 
-```vim
-let g:elm_format_autosave = 1
+```
+npm install -g elm-format
 ```
 
 ## Mappings
@@ -110,7 +110,7 @@ let g:elm_make_show_warnings = 0
 let g:elm_syntastic_show_warnings = 0
 let g:elm_browser_command = ""
 let g:elm_detailed_complete = 0
-let g:elm_format_autosave = 0
+let g:elm_format_autosave = 1
 let g:elm_format_fail_silently = 0
 let g:elm_setup_keybindings = 1
 ```
