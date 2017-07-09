@@ -69,6 +69,10 @@ let g:elm_setup_keybindings = 0
 
 ## Integration
 
+### [Ale](https://github.com/w0rp/ale)
+
+The preferred linter to use with elm-vim is Ale. It should work out of the box.
+
 ### [Syntastic](https://github.com/scrooloose/syntastic)
 
 Syntastic support should work out of the box, but we recommend the following settings:
@@ -128,7 +132,7 @@ let g:elm_setup_keybindings = 1
 * `:ElmShowDocs` queries elm-oracle, then echoes the type and docs for the word under the cursor.
 
 * `:ElmBrowseDocs` queries elm-oracle, then opens docs web page for the word under the cursor.
-*
+
 * `:ElmFormat` formats the current buffer with elm-format.
 
 ## Screenshots
