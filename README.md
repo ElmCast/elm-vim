@@ -69,6 +69,14 @@ let g:elm_setup_keybindings = 0
 
 ## Integration
 
+### Automatically Format Upon Save
+
+To automatically format your code before a save, add the following to your `.vimrc`
+
+```vim
+au BufWritePre *.elm call elm#Format()                                                                                            
+```
+
 ### [Syntastic](https://github.com/scrooloose/syntastic)
 
 Syntastic support should work out of the box, but we recommend the following settings:
@@ -113,6 +121,7 @@ let g:elm_detailed_complete = 0
 let g:elm_format_autosave = 1
 let g:elm_format_fail_silently = 0
 let g:elm_setup_keybindings = 1
+let g:elm_format_two_spaces = 1
 ```
 
 * `:ElmMake [filename]` calls `elm-make` with the given file. If no file is given it uses the current file being edited.

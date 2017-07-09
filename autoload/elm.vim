@@ -63,6 +63,7 @@ function! elm#Format() abort
 	" call elm-format on the temporary file
 	let l:out = system('elm-format ' . l:tmpname . ' --output ' . l:tmpname)
 
+
 	" if there is no error
 	if v:shell_error == 0
 		try | silent undojoin | catch | endtry
@@ -70,6 +71,9 @@ function! elm#Format() abort
 		" replace current file with temp file, then reload buffer
 		let l:old_fileformat = &fileformat
 		call rename(l:tmpname, expand('%'))
+    if get(g:, "elm_format_two_spaces", 0) == 1
+      call system("sed -e 's/^/~/' -e ': r' -e 's/^\\( *\\)~    /\\1  ~/' -e 't r' -e 's/~//' -i " . expand('%'))
+    endif
 		silent edit!
 		let &fileformat = l:old_fileformat
 		let &syntax = &syntax
