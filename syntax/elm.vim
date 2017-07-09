@@ -64,4 +64,6 @@ hi def link elmOperator Operator
 hi def link elmType Identifier
 hi def link elmNumberType Identifier
 
+syn sync minlines=500
+
 let b:current_syntax = 'elm'
