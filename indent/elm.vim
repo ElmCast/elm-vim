@@ -9,7 +9,7 @@ let b:did_indent = 1
 " Local defaults
 setlocal expandtab
 setlocal indentexpr=GetElmIndent()
-setlocal indentkeys+=0=else,0=if,0=of,0=import,0=then,0=type,0\|,0},0\],0),=-},0=in
+setlocal indentkeys+=0=else,0=if,0=of,0=import,0=then,0=type,0\|,0},0\],0),=-},0=in,0\=
 setlocal nolisp
 setlocal nosmartindent
 
@@ -89,17 +89,14 @@ function! GetElmIndent()
 	if l:lline =~# '\(|\|=\|->\|<-\|(\|\[\|{\|\<\(of\|else\|if\|then\)\)\s*$'
 		let l:ind = l:ind + &shiftwidth
 
-	" Add a 'shiftwidth' after lines starting with type ending with '=':
-	elseif l:lline =~# '^\s*type' && l:line =~# '^\s*='
-		let l:ind = l:ind + &shiftwidth
-
 	" Back to normal indent after comments:
 	elseif l:lline =~# '-}\s*$'
 		call search('-}', 'bW')
 		let l:ind = indent(searchpair('{-', '', '-}', 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string"'))
 
 	" Ident some operators if there aren't any starting the last line.
-	elseif l:line =~# '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)=' && l:lline !~# '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\)=' && l:lline !~# '^\s*$'
+	" Including '=' for Union types indentation
+	elseif l:line =~# '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\|=\)' && l:lline !~# '^\s*\(!\|&\|(\|`\|+\||\|{\|[\|,\|=\)' && l:lline !~# '^\s*$'
 		let l:ind = l:ind + &shiftwidth
 
 	elseif l:lline ==# '' && getline(l:lnum - 1) !=# ''
