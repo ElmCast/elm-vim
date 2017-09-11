@@ -43,17 +43,9 @@ function! GetElmIndent()
 	if l:line =~? '^\s*}'
 		return s:FindPair('{', '', '}')
 
-	" Indent if current line begins with 'else':
+	" Align 'else' with the parent if.
 	elseif l:line =~# '^\s*else\>'
-		if l:lline !~# '^\s*\(if\|then\)\>'
-			return s:FindPair('\<if\>', '', '\<else\>')
-		endif
-
-	" Indent if current line begins with 'then':
-	elseif l:line =~# '^\s*then\>'
-		if l:lline !~# '^\s*\(if\|else\)\>'
-			return s:FindPair('\<if\>', '', '\<then\>')
-		endif
+		return indent(search('^\s*if', 'bWn'))
 
 	" HACK: Indent lines in case with nearest case clause:
 	elseif l:line =~# '->' && l:line !~# ':' && l:line !~# '\\'
