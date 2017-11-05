@@ -6,8 +6,7 @@ endif
 
 " Keywords
 syn keyword elmConditional case else if of then
-syn keyword elmAlias alias
-syn keyword elmTypedef type port let in
+syn keyword elmTypedef type port let in infixr infixl alias
 syn keyword elmImport exposing as import module where
 
 " Operators
@@ -41,9 +40,12 @@ syn match elmInt "-\?\<\d\+\>\|0[xX][0-9a-fA-F]\+\>"
 syn match elmFloat "\(\<\d\+\.\d\+\>\)"
 
 " Identifiers
-syn match elmTopLevelDecl "^\s*[a-zA-Z][a-zA-z0-9_]*\('\)*\s\+:\s\+" contains=elmOperator
+syn region elmRecord matchgroup=elmRecord start="{[^-]" end="[^-]}" contains=ALL contained
+syn match elmTopLevelDecl "^\s*[a-zA-Z][a-zA-z0-9_]*\('\)*\_s\+:\(\s\+\|$\)" contains=elmOperator
+syn match elmTopLevelBinding "^\s*\(let \)\?\zs[a-zA-Z][a-zA-z0-9_]*\('\)*\ze\([^{]*\|.*{[^}]*}.*\)[^-!#$%&\*\+./<=>\?@\\^|~:]=\([^-!#$%&\*\+./<=>\?@\\^|~:]\|$\)" contains=elmRecord
 
 hi def link elmTopLevelDecl Function
+hi def link elmTopLevelBinding Function
 hi def link elmTupleFunction Normal
 hi def link elmTodo Todo
 hi def link elmComment Comment
@@ -59,7 +61,6 @@ hi def link elmBraces Delimiter
 hi def link elmTypedef TypeDef
 hi def link elmImport Include
 hi def link elmConditional Conditional
-hi def link elmAlias Delimiter
 hi def link elmOperator Operator
 hi def link elmType Identifier
 hi def link elmNumberType Identifier
