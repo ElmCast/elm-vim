@@ -116,7 +116,8 @@ function! elm#util#GoToModule(name)
   else
     let l:extension = '.js'
   endif
-  let l:rel_path = substitute(a:name, '\.', '/', 'g') . l:extension
+  let l:module_name = substitute(a:name, '\.[a-z][A-Za-z0-9_]\+$', '', '')
+  let l:rel_path = substitute(l:module_name, '\.', '/', 'g') . l:extension
   let l:root = elm#FindRootDirectory()
 
   let l:module_file = s:findLocalModule(l:rel_path, l:root)
