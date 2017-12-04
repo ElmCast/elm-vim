@@ -116,6 +116,7 @@ function! elm#util#GoToModule(name)
   else
     let l:extension = '.js'
   endif
+  " Strip trailing func name if it exists. So My.Module.func becomes My.Module
   let l:module_name = substitute(a:name, '\.[a-z][A-Za-z0-9_]\+$', '', '')
   let l:rel_path = substitute(l:module_name, '\.', '/', 'g') . l:extension
   let l:root = elm#FindRootDirectory()
@@ -128,7 +129,29 @@ function! elm#util#GoToModule(name)
   if filereadable(l:module_file)
     exec 'edit ' . fnameescape(l:module_file)
   else
-    return s:error("Can't find module \"" . a:name . "\"")
+    " We can't find the module name, so see if it is a module alias by looking
+    " for ' as M ' where M is our token
+    let l:line = search(' as ' . l:module_name . ' ', 'nw')
+    if line
+      let l:contents = getline(line)
+
+      " Convert 'import My.Module as MM ' to 'My.Module' to repeat the lookup
+      let l:module_name = substitute(substitute(l:contents, 'import ', '', ''), ' as ' . l:module_name . ' .*', '', '')
+      let l:rel_path = substitute(l:module_name, '\.', '/', 'g') . l:extension
+
+      let l:module_file = s:findLocalModule(l:rel_path, l:root)
+      if !filereadable(l:module_file)
+        let l:module_file = s:findDependencyModule(l:rel_path, l:root)
+      endif
+
+      if filereadable(l:module_file)
+        exec 'edit ' . fnameescape(l:module_file)
+      else
+        return s:error("Can't find module \"" . l:module_name . "\"")
+      endif
+    else
+      return s:error("Can't find module \"" . a:name . "\"")
+    endif
   endif
 endfunction
 
