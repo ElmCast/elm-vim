@@ -116,19 +116,20 @@ function! elm#util#GoToModule(name)
   else
     let l:extension = '.js'
   endif
+
   " Strip trailing func name if it exists. So My.Module.func becomes My.Module
+  " Relies on functions starting with a lower case letter
   let l:module_name = substitute(a:name, '\.[a-z][A-Za-z0-9_]\+$', '', '')
-  let l:rel_path = substitute(l:module_name, '\.', '/', 'g') . l:extension
   let l:root = elm#FindRootDirectory()
 
-  let l:module_file = s:findLocalModule(l:rel_path, l:root)
-  if !filereadable(l:module_file)
-    let l:module_file = s:findDependencyModule(l:rel_path, l:root)
-  endif
+  while 1
 
-  if filereadable(l:module_file)
-    exec 'edit ' . fnameescape(l:module_file)
-  else
+    let l:module_path = s:findModule(l:module_name, l:root, l:extension)
+    if l:module_path != ""
+      exec 'edit ' . fnameescape(l:module_path)
+      return
+    endif
+
     " We can't find the module name, so see if it is a module alias by looking
     " for ' as M ' where M is our token
     let l:line = search(' as ' . l:module_name . '\( \|$\)', 'nw')
@@ -136,22 +137,39 @@ function! elm#util#GoToModule(name)
       let l:contents = getline(line)
 
       " Convert 'import My.Module as MM ' to 'My.Module' to repeat the lookup
-      let l:module_name = substitute(substitute(l:contents, 'import ', '', ''), ' as .*', '', '')
-      let l:rel_path = substitute(l:module_name, '\.', '/', 'g') . l:extension
-
-      let l:module_file = s:findLocalModule(l:rel_path, l:root)
-      if !filereadable(l:module_file)
-        let l:module_file = s:findDependencyModule(l:rel_path, l:root)
+      let l:module_import_name = substitute(substitute(l:contents, 'import ', '', ''), ' as .*', '', '')
+      let l:module_path = s:findModule(l:module_import_name, l:root, l:extension)
+      if l:module_path != ""
+        exec 'edit ' . fnameescape(l:module_path)
+        return
       endif
-
-      if filereadable(l:module_file)
-        exec 'edit ' . fnameescape(l:module_file)
-      else
-        return s:error("Can't find module \"" . l:module_name . "\"")
-      endif
-    else
-      return s:error("Can't find module \"" . a:name . "\"")
     endif
+
+    " Strip the last segment off and try again as we might be over a string
+    " that is My.Module.Type as types start with capital letters and so are
+    " indistinguishable from modules
+    let l:new_module_name = substitute(l:module_name, '\.[^\.]*$', '', '')
+
+    if l:module_name == l:new_module_name
+      return s:error("Can't find module \"" . l:module_name . "\"")
+    else
+      let l:module_name = l:new_module_name
+    endif
+  endwhile
+endfunction
+
+function! s:findModule(module_name, root, extension)
+  let l:rel_path = substitute(a:module_name, '\.', '/', 'g') . a:extension
+
+  let l:module_file = s:findLocalModule(l:rel_path, a:root)
+  if !filereadable(l:module_file)
+    let l:module_file = s:findDependencyModule(l:rel_path, a:root)
+  endif
+
+  if filereadable(l:module_file)
+    return l:module_file
+  else
+    return ""
   endif
 endfunction
 
