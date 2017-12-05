@@ -120,6 +120,7 @@ function! elm#util#GoToModule(name)
   " Strip trailing func name if it exists. So My.Module.func becomes My.Module
   " Relies on functions starting with a lower case letter
   let l:module_name = substitute(a:name, '\.[a-z][A-Za-z0-9_]\+$', '', '')
+  let l:function_name = substitute(a:name, l:module_name . '\.', '', '')
   let l:root = elm#FindRootDirectory()
 
   while 1
@@ -127,6 +128,10 @@ function! elm#util#GoToModule(name)
     let l:module_path = s:findModule(l:module_name, l:root, l:extension)
     if l:module_path != ""
       exec 'edit ' . fnameescape(l:module_path)
+      if l:function_name != ""
+        " Move cursor to function location
+        call search('^' . l:function_name . '\>')
+      endif
       return
     endif
 
@@ -141,6 +146,10 @@ function! elm#util#GoToModule(name)
       let l:module_path = s:findModule(l:module_import_name, l:root, l:extension)
       if l:module_path != ""
         exec 'edit ' . fnameescape(l:module_path)
+        if l:function_name != ""
+          " Move cursor to function location
+          call search('^' . l:function_name . '\>')
+        endif
         return
       endif
     endif
