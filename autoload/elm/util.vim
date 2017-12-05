@@ -131,12 +131,12 @@ function! elm#util#GoToModule(name)
   else
     " We can't find the module name, so see if it is a module alias by looking
     " for ' as M ' where M is our token
-    let l:line = search(' as ' . l:module_name . ' ', 'nw')
+    let l:line = search(' as ' . l:module_name . '\( \|$\)', 'nw')
     if line
       let l:contents = getline(line)
 
       " Convert 'import My.Module as MM ' to 'My.Module' to repeat the lookup
-      let l:module_name = substitute(substitute(l:contents, 'import ', '', ''), ' as ' . l:module_name . ' .*', '', '')
+      let l:module_name = substitute(substitute(l:contents, 'import ', '', ''), ' as .*', '', '')
       let l:rel_path = substitute(l:module_name, '\.', '/', 'g') . l:extension
 
       let l:module_file = s:findLocalModule(l:rel_path, l:root)
