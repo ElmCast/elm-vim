@@ -135,6 +135,8 @@ function! elm#util#GoToModule(name)
       if l:target != ""
         " Move cursor to target location
         call search(target)
+        " Center screen on line
+        exec "normal z."
       endif
       return
     endif
@@ -153,6 +155,8 @@ function! elm#util#GoToModule(name)
         if l:target != ""
           " Move cursor to function location
           call search(target)
+          " Center screen on line
+          exec "normal z."
         endif
         return
       endif
