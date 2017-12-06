@@ -121,6 +121,10 @@ function! elm#util#GoToModule(name)
   " Relies on functions starting with a lower case letter
   let l:module_name = substitute(a:name, '\.[a-z][A-Za-z0-9_]\+$', '', '')
   let l:function_name = substitute(a:name, l:module_name . '\.', '', '')
+  let l:target = ""
+  if l:function_name != ""
+    let l:target = '^' . l:function_name . '\>'
+  endif
   let l:root = elm#FindRootDirectory()
 
   while 1
@@ -128,9 +132,9 @@ function! elm#util#GoToModule(name)
     let l:module_path = s:findModule(l:module_name, l:root, l:extension)
     if l:module_path != ""
       exec 'edit ' . fnameescape(l:module_path)
-      if l:function_name != ""
-        " Move cursor to function location
-        call search('^' . l:function_name . '\>')
+      if l:target != ""
+        " Move cursor to target location
+        call search(target)
       endif
       return
     endif
@@ -146,9 +150,9 @@ function! elm#util#GoToModule(name)
       let l:module_path = s:findModule(l:module_import_name, l:root, l:extension)
       if l:module_path != ""
         exec 'edit ' . fnameescape(l:module_path)
-        if l:function_name != ""
+        if l:target != ""
           " Move cursor to function location
-          call search('^' . l:function_name . '\>')
+          call search(target)
         endif
         return
       endif
@@ -162,6 +166,10 @@ function! elm#util#GoToModule(name)
     if l:module_name == l:new_module_name
       return s:error("Can't find module \"" . l:module_name . "\"")
     else
+      let l:type_name = substitute(l:module_name, l:new_module_name . '\.', '', '')
+      let l:type_regex = '^type \(alias \|\)' . l:type_name . '\( =\|\)$'
+      let l:union_regex = '^    \(=\||\) ' . l:type_name . '\( \|$\)'
+      let l:target = '\(' . l:type_regex . '\|' . l:union_regex . '\)'
       let l:module_name = l:new_module_name
     endif
   endwhile
