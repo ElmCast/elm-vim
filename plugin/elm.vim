@@ -4,6 +4,12 @@ endif
 
 let g:loaded_elm = 1
 
+" Default settings
+if !exists('g:elm_format_binary')
+    let g:elm_format_binary = 'elm-format'
+endif
+
+
 " Mappings
 nnoremap <silent> <Plug>(elm-make) :<C-u>call elm#Make()<CR>
 nnoremap <silent> <Plug>(elm-make-main) :<C-u>call elm#Make("Main.elm")<CR>
