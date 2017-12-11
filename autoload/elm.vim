@@ -376,3 +376,29 @@ function! s:ExecuteInRoot(cmd) abort
 
 	return l:out
 endfunction
+
+" Install executables
+function! elm#InstallExecutables() abort
+	let l:packages = [
+		    \ 'elm',
+		    \ 'elm-test',
+		    \ 'elm-oracle',
+		    \ 'elm-format',
+		    \]
+
+	if executable('npm')
+		for l:package in l:packages
+			let l:cmd = join(['npm', 'install', '-g', l:package])
+			try
+				let l:out = system(l:cmd)
+			catch
+				call elm#util#EchoWarning('', l:out)
+				break
+			finally
+				call elm#util#EchoSuccess('', l:out)
+			endtry
+		endfor
+	else
+		call elm#util#EchoWarning('', 'npm is required to execute this command.')
+	endif
+endfunction
