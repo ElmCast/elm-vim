@@ -86,12 +86,12 @@ function! GetElmFilename(word)
   return l:word
 endfunction
 
-let &l:path =
-      \ join([
-      \   elm#FindRootDirectory().'/src',
-      \   elm#FindRootDirectory().'/elm-stuff/packages/**/src',
-      \   &g:path
-      \ ], ',')
+"" let &l:path =
+""       \ join([
+""       \   elm#FindRootDirectory().'/src',
+""       \   elm#FindRootDirectory().'/elm-stuff/packages/**/src',
+""       \   &g:path
+""       \ ], ',')
 setlocal includeexpr=GetElmFilename(v:fname)
 setlocal include=^\\s*import\\s\\+
 setlocal suffixesadd=.elm
