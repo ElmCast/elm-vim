@@ -41,14 +41,14 @@ setlocal comments=:--
 setlocal commentstring=--\ %s
 
 " Commands
-command -buffer -nargs=? -complete=file ElmMake call elm#Make(<f-args>)
-command -buffer ElmMakeMain call elm#Make("Main.elm")
-command -buffer -nargs=? -complete=file ElmTest call elm#Test(<f-args>)
-command -buffer ElmRepl call elm#Repl()
-command -buffer ElmErrorDetail call elm#ErrorDetail()
-command -buffer ElmShowDocs call elm#ShowDocs()
-command -buffer ElmBrowseDocs call elm#BrowseDocs()
-command -buffer ElmFormat call elm#Format()
+command! -buffer -nargs=? -complete=file ElmMake call elm#Make(<f-args>)
+command! -buffer ElmMakeMain call elm#Make("Main.elm")
+command! -buffer -nargs=? -complete=file ElmTest call elm#Test(<f-args>)
+command! -buffer ElmRepl call elm#Repl()
+command! -buffer ElmErrorDetail call elm#ErrorDetail()
+command! -buffer ElmShowDocs call elm#ShowDocs()
+command! -buffer ElmBrowseDocs call elm#BrowseDocs()
+command! -buffer ElmFormat call elm#Format()
 command! ElmInstallExecutables call elm#InstallExecutables()
 
 if get(g:, 'elm_setup_keybindings', 1)
@@ -87,12 +87,12 @@ function! GetElmFilename(word)
   return l:word
 endfunction
 
-let &l:path =
-      \ join([
-      \   elm#FindRootDirectory().'/src',
-      \   elm#FindRootDirectory().'/elm-stuff/packages/**/src',
-      \   &g:path
-      \ ], ',')
+"" let &l:path =
+""       \ join([
+""       \   elm#FindRootDirectory().'/src',
+""       \   elm#FindRootDirectory().'/elm-stuff/packages/**/src',
+""       \   &g:path
+""       \ ], ',')
 setlocal includeexpr=GetElmFilename(v:fname)
 setlocal include=^\\s*import\\s\\+
 setlocal suffixesadd=.elm
