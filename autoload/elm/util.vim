@@ -172,3 +172,11 @@ function! s:error(msg)
 	echohl NONE
 	let v:errmsg = a:msg
 endfunction
+
+
+function! elm#util#CleansingElmToolPath(tool_name) abort
+  if g:elm_local_bin == 1
+    return './node_modules/.bin/' . a:tool_name
+  endif
+  return a:tool_name
+endfunction

@@ -39,8 +39,9 @@ endf
 
 " Vim command to format Elm files with elm-format
 function! elm#Format() abort
+  let l:binpath = elm#util#CleansingElmToolPath('elm-format')
 	" check for elm-format
-	if elm#util#CheckBin('elm-format', 'https://github.com/avh4/elm-format') ==# ''
+	if elm#util#CheckBin(binpath, 'https://github.com/avh4/elm-format') ==# ''
 		return
 	endif
 
@@ -61,7 +62,7 @@ function! elm#Format() abort
 	call writefile(getline(1, '$'), l:tmpname)
 
 	" call elm-format on the temporary file
-	let l:out = system('elm-format ' . l:tmpname . ' --output ' . l:tmpname)
+	let l:out = system(l:binpath . ' ' . l:tmpname . ' --output ' . l:tmpname)
 
 	" if there is no error
 	if v:shell_error == 0
