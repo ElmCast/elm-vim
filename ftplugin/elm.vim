@@ -49,6 +49,7 @@ command! -buffer ElmErrorDetail call elm#ErrorDetail()
 command! -buffer ElmShowDocs call elm#ShowDocs()
 command! -buffer ElmBrowseDocs call elm#BrowseDocs()
 command! -buffer ElmFormat call elm#Format()
+command! ElmInstallExecutables call elm#InstallExecutables()
 
 if get(g:, 'elm_setup_keybindings', 1)
   nmap <buffer> <LocalLeader>m <Plug>(elm-make)
