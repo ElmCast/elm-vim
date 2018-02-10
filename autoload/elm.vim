@@ -109,8 +109,9 @@ endf
 
 " Query elm-oracle and open the docs for the word under the cursor.
 function! elm#BrowseDocs() abort
+  let l:binpath = elm#util#CleansingElmToolPath('elm-oracle')
 	" check for the elm-oracle binary
-	if elm#util#CheckBin('elm-oracle', 'https://github.com/elmcast/elm-oracle') ==# ''
+	if elm#util#CheckBin(l:binpath, 'https://github.com/elmcast/elm-oracle') ==# ''
 		return
 	endif
 
@@ -128,7 +129,7 @@ endf
 function! elm#Syntastic(input) abort
 	let l:fixes = []
 
-	let l:bin = 'elm-make'
+  let l:bin = elm#util#CleansingElmToolPath('elm-make')
 	let l:format = '--report=json'
 	let l:input = shellescape(a:input)
 	let l:output = '--output=' . shellescape(syntastic#util#DevNull())
@@ -158,16 +159,15 @@ function! elm#Syntastic(input) abort
 	return l:fixes
 endf
 
-function! elm#Build(input, output, show_warnings) abort
+function! elm#Build(bin, input, output, show_warnings) abort
 	let s:errors = []
 	let l:fixes = []
 	let l:rawlines = []
 
-	let l:bin = 'elm-make'
 	let l:format = '--report=json'
 	let l:input = shellescape(a:input)
 	let l:output = '--output=' . shellescape(a:output)
-	let l:command = l:bin . ' ' . l:format  . ' ' . l:input . ' ' . l:output
+	let l:command = a:bin . ' ' . l:format  . ' ' . l:input . ' ' . l:output
 	let l:reports = s:ExecuteInRoot(l:command)
 
 	for l:report in split(l:reports, '\n')
@@ -213,14 +213,15 @@ endf
 
 " Make the given file, or the current file if none is given.
 function! elm#Make(...) abort
-	if elm#util#CheckBin('elm-make', 'http://elm-lang.org/install') ==# ''
+  let l:binpath = elm#util#CleansingElmToolPath('elm-make')
+	if elm#util#CheckBin(l:binpath, 'http://elm-lang.org/install') ==# ''
 		return
 	endif
 
 	call elm#util#Echo('elm-make:', 'building...')
 
 	let l:input = (a:0 == 0) ? expand('%:p') : a:1
-	let l:fixes = elm#Build(l:input, g:elm_make_output_file, g:elm_make_show_warnings)
+	let l:fixes = elm#Build(l:binpath, l:input, g:elm_make_output_file, g:elm_make_show_warnings)
 
 	if len(l:fixes) > 0
 		call elm#util#EchoWarning('', 'found ' . len(l:fixes) . ' errors')
@@ -257,8 +258,9 @@ endf
 
 " Open the elm repl in a subprocess.
 function! elm#Repl() abort
+  let l:binpath = elm#util#CleansingElmToolPath('elm-repl')
 	" check for the elm-repl binary
-	if elm#util#CheckBin('elm-repl', 'http://elm-lang.org/install') ==# ''
+	if elm#util#CheckBin(l:binpath, 'http://elm-lang.org/install') ==# ''
 		return
 	endif
 
@@ -270,7 +272,7 @@ function! elm#Repl() abort
 endf
 
 function! elm#Oracle(filepath, word) abort
-	let l:bin = 'elm-oracle'
+  let l:bin = elm#util#CleansingElmToolPath('elm-oracle'),
 	let l:filepath = shellescape(a:filepath)
 	let l:word = shellescape(a:word)
 	let l:command = l:bin . ' ' . l:filepath . ' ' . l:word
@@ -328,16 +330,17 @@ endf
 " Otherwise run elm-test in the root of your project which deafults to
 " running 'elm-test tests/TestRunner'.
 function! elm#Test() abort
-	if elm#util#CheckBin('elm-test', 'https://github.com/rtfeldman/node-elm-test') ==# ''
+  let l:binpath = elm#util#CleansingElmToolPath('elm-test')
+	if elm#util#CheckBin(binpath, 'https://github.com/rtfeldman/node-elm-test') ==# ''
 		return
 	endif
 
 	if match(getline(1, '$'), 'consoleRunner') < 0
-		let l:out = s:ExecuteInRoot('elm-test')
+		let l:out = s:ExecuteInRoot(l:binpath)
 		call elm#util#EchoSuccess('elm-test', l:out)
 	else
 		let l:filepath = shellescape(expand('%:p'))
-		let l:out = s:ExecuteInRoot('elm-test ' . l:filepath)
+		let l:out = s:ExecuteInRoot(l:binpath . ' ' . l:filepath)
 		call elm#util#EchoSuccess('elm-test', l:out)
 	endif
 endf
