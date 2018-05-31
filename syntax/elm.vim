@@ -6,8 +6,8 @@ endif
 
 " Keywords
 syn keyword elmConditional case else if of then
-syn keyword elmAlias alias
-syn keyword elmTypedef type port let in
+syn match elmTypealias "type alias" contains=elmTypedef
+syn keyword elmTypedef type port let in infixr infixl infix
 syn keyword elmImport exposing as import module where
 
 " Operators
@@ -15,7 +15,7 @@ syn match elmOperator "\([-!#$%`&\*\+./<=>\?@\\^|~:]\|\<_\>\)"
 
 " Types
 syn match elmType "\<[A-Z][0-9A-Za-z_'-]*"
-syn keyword elmNumberType number
+syn keyword elmTypeClass number appendable comparable
 
 " Delimiters
 syn match elmDelimiter  "[,;]"
@@ -37,13 +37,16 @@ syn region elmTripleString start="\"\"\"" skip="\\\"" end="\"\"\"" contains=elmS
 syn match elmChar "'[^'\\]'\|'\\.'\|'\\u[0-9a-fA-F]\{4}'"
 
 " Numbers
-syn match elmInt "-\?\<\d\+\>\|0[xX][0-9a-fA-F]\+\>"
-syn match elmFloat "\(\<\d\+\.\d\+\>\)"
+syn match elmInt "-\?\<0[xX][0-9a-fA-F]\+\>"
+syn match elmFloat "-\?\<[0-9]\+\(\.[0-9]\+\)\?\([eE][+-]\?[0-9]\+\)\?\>"
 
 " Identifiers
-syn match elmTopLevelDecl "^\s*[a-zA-Z][a-zA-z0-9_]*\('\)*\s\+:\s\+" contains=elmOperator
+syn region elmRecord matchgroup=elmRecord start="{[^-]" end="[^-]}" contains=ALL contained
+syn match elmTopLevelDecl "^\s*[a-zA-Z][a-zA-z0-9_]*\('\)*\_s\+:\(\s\+\|$\)" contains=elmOperator
+syn match elmTopLevelBinding "^\s*\(let \)\?\zs[a-zA-Z][a-zA-z0-9_]*\('\)*\ze\([^{]*\|.*{[^}]*}.*\)[^-!#$%&\*\+./<=>\?@\\^|~:]=\([^-!#$%&\*\+./<=>\?@\\^|~:]\|$\)" contains=elmRecord
 
 hi def link elmTopLevelDecl Function
+hi def link elmTopLevelBinding Function
 hi def link elmTupleFunction Normal
 hi def link elmTodo Todo
 hi def link elmComment Comment
@@ -56,13 +59,13 @@ hi def link elmInt Number
 hi def link elmFloat Float
 hi def link elmDelimiter Delimiter
 hi def link elmBraces Delimiter
+hi def link elmTypealias TypeDef
 hi def link elmTypedef TypeDef
 hi def link elmImport Include
 hi def link elmConditional Conditional
-hi def link elmAlias Delimiter
 hi def link elmOperator Operator
 hi def link elmType Identifier
-hi def link elmNumberType Identifier
+hi def link elmTypeClass Identifier
 
 syn sync minlines=500
 
