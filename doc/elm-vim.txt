@@ -218,10 +218,10 @@ This setting toggles whether format errors show be display.
 
                                                         *'g:elm_format_binary'*
 
-This setting stores the name of the elm-format binary. Defaults to
+This setting stores the name/path of the elm-format binary. Defaults to
 'elm-format'. Allows the use of version-specific elm-format binaries.
 >
-  let g:elm-format_binary = 'elm-format-0.18'
+  let g:elm_format_binary = 'elm-format-0.18'
 <
 
 
