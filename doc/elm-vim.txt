@@ -216,6 +216,13 @@ This setting toggles whether format errors show be display.
   let g:elm_format_fail_silently = 0
 <
 
+                                                 *'g:elm_format_command'*
+
+This setting changes the command used to run elm-format.
+>
+  let g:elm_format_command = "elm-format"
+<
+
 
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*

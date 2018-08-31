@@ -116,6 +116,7 @@ let g:elm_browser_command = ""
 let g:elm_detailed_complete = 0
 let g:elm_format_autosave = 1
 let g:elm_format_fail_silently = 0
+let g:elm_format_command = "elm-format"
 let g:elm_setup_keybindings = 1
 ```
 

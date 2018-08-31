@@ -31,6 +31,10 @@ if !exists('g:elm_format_fail_silently')
     let g:elm_format_fail_silently = 0
 endif
 
+if !exists('g:elm_format_command')
+	let g:elm_format_command = "elm-format"
+endif
+
 if !exists('g:elm_setup_keybindings')
 	let g:elm_setup_keybindings = 1
 endif
