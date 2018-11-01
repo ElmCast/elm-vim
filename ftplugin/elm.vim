@@ -50,6 +50,18 @@ command -buffer ElmShowDocs call elm#ShowDocs()
 command -buffer ElmBrowseDocs call elm#BrowseDocs()
 command -buffer ElmFormat call elm#Format()
 
+" Commands cleanup
+let b:undo_ftplugin = "
+      \ delcommand ElmMake
+      \|delcommand ElmMakeMain
+      \|delcommand ElmTest
+      \|delcommand ElmRepl
+      \|delcommand ElmErrorDetail
+      \|delcommand ElmShowDocs
+      \|delcommand ElmBrowseDocs
+      \|delcommand ElmFormat
+      \"
+
 if get(g:, 'elm_setup_keybindings', 1)
   nmap <buffer> <LocalLeader>m <Plug>(elm-make)
   nmap <buffer> <LocalLeader>b <Plug>(elm-make-main)
