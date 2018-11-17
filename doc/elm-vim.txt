@@ -66,7 +66,7 @@ plugins.
     Copy all of the files into your `~/.vim` directory
 <
 
-Please be sure all necessary binaries are installed (such as `elm-make`,
+Please be sure all necessary binaries are installed (such as `elm`,
 `elm-doc`, `elm-reactor`, etc..) from http://elm-lang.org/. You may also want
 to install `elm-test` with 'npm install -g elm-test' if you want to run unit
 tests from within vim.
@@ -77,17 +77,17 @@ COMMANDS                                                         *elm-commands*
 
 :ElmMake [file]
 
-    ElmMake calls `elm-make` with the given {file}. If no {file} is given
+    ElmMake calls `elm make` with the given {file}. If no {file} is given
     it uses the current file being edited.
 
 :ElmMakeMain
 
-    ElmMakeMain attempts to call `elm-make` with "Main.elm".
+    ElmMakeMain attempts to call `elm make` with "Main.elm".
 
 :ElmTest [file]
 
     ElmTest calls `elm-test` with the given {file}. If no {file} is given
-    it runs it in the root of your project. 
+    it runs it in the root of your project.
 
 :ElmRepl
 
@@ -117,18 +117,18 @@ MAPPINGS                                                         *elm-mappings*
 
 elm-vim has several <Plug> keys which can be used to create custom mappings
 For example, to create a mapping that `elm make` the current file, create a
-mapping for the `(elm-make)` plug: >
+mapping for the `(elm make)` plug: >
 
-  au FileType elm nmap <leader>m <Plug>(elm-make)
+  au FileType elm nmap <leader>m <Plug>(elm make)
 
 As always, you can create more advanced mappings with |elm-commands|.
 Available <Plug> keys are:
 
-                                                                   *(elm-make)*
+                                                                   *(elm make)*
 
 Calls `elm make` for the current file
 
-                                                              *(elm-make-main)*
+                                                              *(elm make-main)*
 
 Calls `elm make` with "Main.elm"
 
@@ -164,7 +164,7 @@ found when running commands. By default it's enabled.
 <
                                                      *'g:elm_make_output_file'*
 
-This setting configures which file elm-make will compile to.
+This setting configures which file elm make will compile to.
 >
   let g:elm_make_output_file = "elm.js"
 <
@@ -220,15 +220,7 @@ This setting toggles whether format errors show be display.
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*
 
-If you see something like:
->
-  command not found: elm-make
-<
-Make sure that you have correctly installed the elm platform from
-http://elm-lang.org.
-
-
-For all other issues, please see https://github.com/elmcast/elm-vim/issues.
+For issues, please see https://github.com/elmcast/elm-vim/issues.
 
 ===============================================================================
 CREDITS                                                           *elm-credits*
