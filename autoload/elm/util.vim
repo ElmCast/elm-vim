@@ -132,15 +132,7 @@ function! elm#util#GoToModule(name)
 endfunction
 
 function! s:findLocalModule(rel_path, root)
-  let l:package_json = a:root . '/elm-package.json'
-  if exists('*json_decode')
-    let l:package = json_decode(readfile(l:package_json))
-    let l:source_roots = l:package['source-directories']
-  else
-    " This is a fallback for vim's which do not support json_decode.
-    " It simply only looks in the 'src' subdirectory and fails otherwise.
-    let l:source_roots = ['src']
-  end
+  let l:source_roots = ['src']
   for l:source_root in l:source_roots
     let l:file_path = a:root . '/' . l:source_root . '/' . a:rel_path
     if !filereadable(l:file_path)
