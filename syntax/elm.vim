@@ -10,9 +10,6 @@ syn keyword elmAlias alias
 syn keyword elmTypedef contained type port
 syn keyword elmImport exposing as import module where
 
-" Operators
-syn match elmOperator contained "\([-!#$%`&\*\+./<=>\?@\\^|~:]\|\<_\>\)"
-
 " Types
 syn match elmType "\<[A-Z][0-9A-Za-z_'-]*"
 syn keyword elmNumberType number
@@ -39,6 +36,10 @@ syn match elmChar "'[^'\\]'\|'\\.'\|'\\u[0-9a-fA-F]\{4}'" contains=elmSpecialCha
 " Numbers
 syn match elmInt "-\?\<\d\+\>\|0[xX][0-9a-fA-F]\+\>"
 syn match elmFloat "\(\<\d\+\.\d\+\>\)"
+
+" Operators
+" Note: *elmOperator* must be matched after *elmSpecialChar*, because they overlap
+syn match elmOperator contained "\([-!#$%`&\*\+./<=>\?@\\^|~:]\|\<_\>\)"
 
 " Identifiers
 syn match elmTopLevelDecl "^\s*[a-zA-Z][a-zA-z0-9_]*\('\)*\s\+:\(\r\n\|\r\|\n\|\s\)\+" contains=elmOperator
