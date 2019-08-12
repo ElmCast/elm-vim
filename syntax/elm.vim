@@ -30,11 +30,11 @@ syn match elmLineComment "--.*" contains=elmTodo,@spell
 syn region elmComment matchgroup=elmComment start="{-|\=" end="-}" contains=elmTodo,elmComment,@spell fold
 
 " Strings
-syn match elmStringEscape "\\u[0-9a-fA-F]\{4}" contained
-syn match elmStringEscape "\\[nrfvbt\\\"]" contained
-syn region elmString start="\"" skip="\\\"" end="\"" contains=elmStringEscape,@spell
-syn region elmTripleString start="\"\"\"" skip="\\\"" end="\"\"\"" contains=elmStringEscape,@spell
-syn match elmChar "'[^'\\]'\|'\\.'\|'\\u[0-9a-fA-F]\{4}'"
+syn match elmSpecialChar "\\u[0-9a-fA-F]\{4}" contained
+syn match elmSpecialChar "\\[nrfvbt\\\"]" contained
+syn region elmString start="\"" skip="\\\"" end="\"" contains=elmSpecialChar,@spell
+syn region elmTripleString start="\"\"\"" skip="\\\"" end="\"\"\"" contains=elmSpecialChar,@spell
+syn match elmChar "'[^'\\]'\|'\\.'\|'\\u[0-9a-fA-F]\{4}'" contains=elmSpecialChar
 
 " Numbers
 syn match elmInt "-\?\<\d\+\>\|0[xX][0-9a-fA-F]\+\>"
@@ -63,7 +63,7 @@ hi def link elmLineComment Comment
 hi def link elmString String
 hi def link elmTripleString String
 hi def link elmChar String
-hi def link elmStringEscape Special
+hi def link elmSpecialChar Special
 hi def link elmInt Number
 hi def link elmFloat Float
 hi def link elmDelimiter Delimiter
