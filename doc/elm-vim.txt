@@ -216,6 +216,11 @@ This setting toggles whether format errors show be display.
   let g:elm_format_fail_silently = 0
 <
 
+                                                 *'g:elm_local_bin'*
+
+This setting toggles whether your elm tools binary as global or local.
+>
+  let g:elm_local_bin = 0
 
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*
