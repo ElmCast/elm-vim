@@ -9,7 +9,7 @@ let s:save_cpo = &cpoptions
 set cpoptions&vim
 
 function! SyntaxCheckers_elm_elm_IsAvailable() dict
-	return executable(substitute('elm-make', '^\s*\(.\{-}\)\s*$', '\1', ''))
+	return executable(substitute('elm', '^\s*\(.\{-}\)\s*$', '\1', ''))
 endfunction
 
 function! SyntaxCheckers_elm_elm_make_GetLocList() dict
@@ -19,7 +19,7 @@ endfunction
 call g:SyntasticRegistry.CreateAndRegisterChecker({
 			\ 'filetype': 'elm',
 			\ 'name': 'elm_make',
-			\ 'exec': 'elm-make'})
+			\ 'exec': 'elm make'})
 
 let &cpoptions = s:save_cpo
 unlet s:save_cpo

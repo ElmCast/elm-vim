@@ -127,11 +127,12 @@ endf
 function! elm#Syntastic(input) abort
 	let l:fixes = []
 
-	let l:bin = 'elm-make'
+	let l:bin = 'elm'
+	let l:subcommand = 'make'
 	let l:format = '--report=json'
 	let l:input = shellescape(a:input)
 	let l:output = '--output=' . shellescape(syntastic#util#DevNull())
-	let l:command = l:bin . ' ' . l:format  . ' ' . l:input . ' ' . l:output
+	let l:command = l:bin . ' ' . l:subcommand . ' ' . l:format  . ' ' . l:input . ' ' . l:output
 	let l:reports = s:ExecuteInRoot(l:command)
 
 	for l:report in split(l:reports, '\n')
@@ -162,11 +163,12 @@ function! elm#Build(input, output, show_warnings) abort
 	let l:fixes = []
 	let l:rawlines = []
 
-	let l:bin = 'elm-make'
+	let l:bin = 'elm'
+	let l:subcommand = 'make'
 	let l:format = '--report=json'
 	let l:input = shellescape(a:input)
 	let l:output = '--output=' . shellescape(a:output)
-	let l:command = l:bin . ' ' . l:format  . ' ' . l:input . ' ' . l:output
+	let l:command = l:bin . ' ' . l:subcommand . ' ' . l:format  . ' ' . l:input . ' ' . l:output
 	let l:reports = s:ExecuteInRoot(l:command)
 
 	for l:report in split(l:reports, '\n')
@@ -212,11 +214,11 @@ endf
 
 " Make the given file, or the current file if none is given.
 function! elm#Make(...) abort
-	if elm#util#CheckBin('elm-make', 'http://elm-lang.org/install') ==# ''
+	if elm#util#CheckBin('elm', 'http://elm-lang.org/install') ==# ''
 		return
 	endif
 
-	call elm#util#Echo('elm-make:', 'building...')
+	call elm#util#Echo('elm make:', 'building...')
 
 	let l:input = (a:0 == 0) ? expand('%:p') : a:1
 	let l:fixes = elm#Build(l:input, g:elm_make_output_file, g:elm_make_show_warnings)
@@ -341,7 +343,7 @@ function! elm#Test() abort
 	endif
 endf
 
-" Returns the closest parent with an elm-package.json file.
+" Returns the closest parent with an elm-package.json or elm.json file.
 function! elm#FindRootDirectory() abort
 	let l:elm_root = getbufvar('%', 'elmRoot')
 	if empty(l:elm_root)
