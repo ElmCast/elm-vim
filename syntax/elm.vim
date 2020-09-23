@@ -5,7 +5,7 @@ if exists('b:current_syntax')
 endif
 
 " Keywords
-syn keyword elmConditional else if of then
+syn keyword elmConditional else if of then not
 syn keyword elmAlias alias
 syn keyword elmTypedef contained type port
 syn keyword elmImport exposing as import module where
