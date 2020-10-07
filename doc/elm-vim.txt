@@ -216,6 +216,14 @@ This setting toggles whether format errors show be display.
   let g:elm_format_fail_silently = 0
 <
 
+                                                        *'g:elm_format_binary'*
+
+This setting stores the name/path of the elm-format binary. Defaults to
+'elm-format'. Allows the use of version-specific elm-format binaries.
+>
+  let g:elm_format_binary = 'elm-format-0.18'
+<
+
 
 ===============================================================================
 TROUBLESHOOTING                                           *elm-troubleshooting*
