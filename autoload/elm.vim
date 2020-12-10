@@ -258,15 +258,15 @@ endf
 
 " Open the elm repl in a subprocess.
 function! elm#Repl() abort
-	" check for the elm-repl binary
-	if elm#util#CheckBin('elm-repl', 'http://elm-lang.org/install') ==# ''
+	" check for the elm repl binary
+	if elm#util#CheckBin('elm', 'http://elm-lang.org/install') ==# ''
 		return
 	endif
 
 	if has('nvim')
-		term('elm-repl')
+		term(elm repl)
 	else
-		!elm-repl
+		!elm repl
 	endif
 endf
 

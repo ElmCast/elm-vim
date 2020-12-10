@@ -125,7 +125,7 @@ let g:elm_setup_keybindings = 1
 
 * `:ElmTest` calls `elm-test` with the given file. If no file is given it runs it in the root of your project. 
 
-* `:ElmRepl` runs `elm-repl`, which will return to vim on exiting.
+* `:ElmRepl` runs `elm repl`, which will return to vim on exiting.
 
 * `:ElmErrorDetail` shows the detail of the current error in the quickfix window.
 

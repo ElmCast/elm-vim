@@ -136,7 +136,7 @@ Calls `elm make` with "Main.elm"
 
 Calls `elm test` with "Test[filename].elm"
 
-                                                                   *(elm-repl)*
+                                                                   *(elm repl)*
 
 Calls `elm repl` in a subprocess
 
