@@ -40,7 +40,7 @@ endf
 " Vim command to format Elm files with elm-format
 function! elm#Format() abort
 	" check for elm-format
-	if elm#util#CheckBin('elm-format', 'https://github.com/avh4/elm-format') ==# ''
+	if elm#util#CheckBin(g:elm_format_command, 'https://github.com/avh4/elm-format') ==# ''
 		return
 	endif
 
@@ -61,7 +61,7 @@ function! elm#Format() abort
 	call writefile(getline(1, '$'), l:tmpname)
 
 	" call elm-format on the temporary file
-	let l:out = system('elm-format ' . l:tmpname . ' --output ' . l:tmpname)
+	let l:out = system(g:elm_format_command . ' ' . l:tmpname . ' --output ' . l:tmpname)
 
 	" if there is no error
 	if v:shell_error == 0
