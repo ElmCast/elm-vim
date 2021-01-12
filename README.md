@@ -123,7 +123,7 @@ let g:elm_setup_keybindings = 1
 
 * `:ElmMakeMain` attempts to call `elm-make` with "Main.elm".
 
-* `:ElmTest` calls `elm-test` with the given file. If no file is given it runs it in the root of your project. 
+* `:ElmTest` calls `elm-test` with the given file. If no file is given it runs it in the root of your project.
 
 * `:ElmRepl` runs `elm-repl`, which will return to vim on exiting.
 
