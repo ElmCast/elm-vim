@@ -67,12 +67,10 @@ function! elm#Format() abort
 	if v:shell_error == 0
 		try | silent undojoin | catch | endtry
 
-		" replace current file with temp file, then reload buffer
-		let l:old_fileformat = &fileformat
-		call rename(l:tmpname, expand('%'))
-		silent edit!
-		let &fileformat = l:old_fileformat
-		let &syntax = &syntax
+		" replace current buffer with buffer from temp file
+		%delete
+		exe 'read ' . l:tmpname
+		1delete
 	elseif g:elm_format_fail_silently == 0
 		call elm#util#EchoLater('EchoError', 'elm-format:', l:out)
 	endif
