@@ -9,6 +9,8 @@ function! s:SetTagbar()
         let g:tagbar_type_elm = {
                     \ 'ctagstype' : 'elm',
                     \ 'kinds'     : [
+                    \ 't:types',
+                    \ 'a:type aliases',
                     \ 'c:constants',
                     \ 'f:functions',
                     \ 'p:ports'
